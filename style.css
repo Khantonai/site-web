@@ -1,0 +1,60 @@
+header nav {
+    height: calc(100vh - 16px);
+    width: 100px;
+    top: 50%;
+    transform: translateY(-50%);
+    border: solid red;   
+    position: fixed;
+    border-radius: 5px;
+}
+
+header > nav > div {
+    transition: 1s;
+    height: calc(100% - 48px * 4.5);
+    position: absolute;
+    width: 50px;
+}
+
+header > nav > div > h1 {
+    margin-block: 10px;
+    transition: 1s;
+    position: relative;
+    top: calc(100% - 20px);
+}
+
+
+
+
+header > nav > div.active h1 {
+}
+
+header > nav > div.plus-active h1 {
+    top: 0;
+}
+
+
+/* #container {
+    margin: 55vh 0;
+    padding: 50px;
+    outline: 1px dashed orange;
+}
+
+#block {
+    padding: 10px;
+    border: 1px solid black;
+    font-family: Helvetica;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.cc {
+    color: blue;
+}
+
+.cc.dd {
+    color: yellow;
+} */
