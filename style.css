@@ -3,9 +3,19 @@
     src: url(Barlow-Medium.ttf);
 }
 
+@font-face {
+    font-family: SpaceGrotesk;
+    src: url(SpaceGrotesk-Medium.ttf);
+}
+
+@font-face {
+    font-family: Gotham;
+    src: url(Gotham-Bold.otf);
+}
+
+
 * {
     color: #262626;
-    font-family: Barlow;
 }
 
 body {
@@ -14,46 +24,561 @@ body {
 
 header nav {
     height: calc(100vh - 16px);
-    width: 150px;
+    width: 200px;
     top: 50%;
     transform: translateY(-50%);
-    border: solid red;   
     position: fixed;
     border-radius: 5px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 header > nav > div {
     transition: 1s;
-    height: calc(100% - 48px * 4.5);
-    position: absolute;
+    transition-delay:  0.2s;
+    background-color: orange;
+    border-radius: 10px;
+    margin-block: 5px;
+    height: 80px;
+    overflow: hidden;
+    display: flex;
+    justify-content: space-between;
+    padding: 5px;
+    cursor: pointer;
+
+}
+
+.active {
+    height: 100%;
 }
 
 header h1 {
-    margin-block: 10px;
+    margin-block: 8px;
     transition: 1s;
+    z-index: 10;
+    font-size: 26px;
+    font-family: Gotham;
+}
+
+header h2 {
+    transition: 0.5s ease-out;
+    z-index: 9;
+    width: fit-content;
+    color: white;
+    margin:0;
+    font-size: 200px;
+    font-family: SpaceGrotesk;
+}
+
+header .menu-title {
+    width: calc(100% - 30px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+header > nav > div.active h1 {
+    /* font-size: 26px; */
+    color: white;
+}
+
+.scrollView {
+    width: 14px;
+    height: calc(100% - 10px);
+    border: solid;
+    border-radius: 50px;
     position: relative;
-    top: calc(100% - 20px);
-    cursor: pointer;
+    margin: 5px;
+    transition: 0.5s;
     z-index: 10;
 }
 
+.scrollView > div  {
+    width: 100%;
+    height: calc(100% - 15px);
+    display: flex;
+    justify-content: center;
+    margin-top: 2px ;
+}
+
+.scrollView > div > div {
+    width: 10px;
+    height: 10px;
+    background-color: black;
+    border-radius: 50px;
+    position: relative;
+}
 
 
-
-
-header div.plus-active h1 {
-    top: 0;
+header > nav > div:not(.active) > .scrollView {
+    opacity: 0 !important;
 }
 
 main {
-    border: solid;
-    margin-left: 160px;
-    height: 200vh;
-    border-radius: 5px;
+    margin-left: 210px;
 }
 
 
 main section {
-    height: 100vh;
+    height: 200vh;
+    border: solid;
+    margin-block: 10px;
 }
 
+
+#picture {
+    border: solid;
+    width: 150px;
+}
+
+#picture img {
+    width: 100%;
+}
+
+
+
+
+
+/*==================COMPÉTENCES=================*/
+
+@keyframes clign {
+    50% {
+        border-right: solid 0px;
+    }
+}
+
+@keyframes extendRightH2 {
+    0% {
+        width: 0;
+        height: 0;
+    }
+
+    100% {
+        height: 7;
+        width: 25%;
+    }
+}
+
+@keyframes extendRightLine {
+
+    0%,
+    6%,
+    100% {
+        width: 0;
+    }
+
+    12.5%,
+    85% {
+        visibility: visible;
+        width: 100%;
+    }
+
+
+}
+
+@keyframes extendDownLine {
+
+    0%,
+    18.5% {
+        height: 0;
+    }
+
+    25%,
+    85% {
+        visibility: visible;
+        height: 100%;
+        transform: translate(calc(15vw - 1px), -1px);
+    }
+
+    100% {
+        height: 0;
+        transform: translate(0px, -1px);
+    }
+}
+
+@keyframes extendLeftLine {
+
+    0%,
+    31% {
+        width: 0;
+        margin-left: 100%;
+    }
+
+    37.5%,
+    85% {
+        visibility: visible;
+        margin-left: 0;
+        width: 100%;
+        transform: translateY(5vw);
+    }
+
+    100% {
+        width: 0;
+        transform: translateY(0);
+    }
+}
+
+@keyframes extendUpLine {
+
+    0%,
+    43.5% {
+        height: 0;
+        top: 100%;
+    }
+
+    50%,
+    85% {
+        visibility: visible;
+        height: 100%;
+        top: 0;
+    }
+
+    100% {
+        height: 0;
+    }
+}
+
+
+
+@keyframes square1 {
+    3% {
+        visibility: visible;
+    }
+
+    2%,
+    53% {
+        visibility: hidden;
+    }
+
+}
+
+@keyframes square2 {
+    15.5% {
+        visibility: visible;
+    }
+
+    15%,
+    53% {
+        visibility: hidden;
+    }
+}
+
+
+@keyframes square3 {
+    28% {
+        visibility: visible;
+    }
+
+    0%,
+    27.5%,
+    53% {
+        visibility: hidden;
+    }
+}
+
+@keyframes square4 {
+    40.5% {
+        visibility: visible;
+    }
+
+    0%,
+    40%,
+    53% {
+        visibility: hidden;
+    }
+}
+
+@keyframes drawLine {
+
+    0%,
+    6%,
+    50%,
+    56% {
+        visibility: visible;
+        left: -5px;
+        top: -10px;
+        width: 32px;
+    }
+
+    3%,
+    15.5%,
+    28%,
+    40.5%,
+    53% {
+        width: 25px;
+    }
+
+    12.5%,
+    18.5% {
+        left: calc(100% - 10px);
+        top: -10px;
+        width: 32px;
+    }
+
+    25%,
+    31% {
+        left: calc(100% - 10px);
+        top: calc(100% - 10px);
+        width: 32px;
+    }
+
+    37.5%,
+    43.5% {
+        left: -5px;
+        top: calc(100% - 10px);
+        width: 32px;
+    }
+
+    65%,
+    90% {
+        left: calc(90% - 10px);
+        top: -50px;
+        width: 32px;
+    }
+}
+
+@keyframes animH2 {
+
+    0%,
+    52.5% {
+        visibility: hidden;
+    }
+
+    53%,
+    85% {
+        visibility: visible;
+        width: 100%;
+        height: 5vw;
+    }
+
+    100% {
+        width: 0;
+        height: 0;
+    }
+
+}
+
+@keyframes animBorderH2 {
+
+    10%,
+    90% {
+        width: 0%;
+    }
+
+    35%,
+    65% {
+        width: 25vw;
+    }
+}
+
+@keyframes animTimecode {
+
+    10%,
+    90% {
+        transform: translate(-3px, -10px);
+    }
+
+    35%,
+    65% {
+        transform: translate(calc(25vw - 3px), -10px);
+    }
+}
+
+@keyframes animSequence {
+
+    0%,
+    100% {
+        width: 0%;
+    }
+
+    25%,
+    75% {
+        width: 25vw;
+    }
+}
+
+
+
+
+
+
+#comp-page {
+    display: flex;
+    width: calc(100vw - 100px);
+    flex-direction: column;
+}
+
+#comp-page>div {
+    display: flex;
+    border: solid;
+    flex: 0 0 33%;
+    justify-content: center;
+    z-index: 100;
+}
+
+#comp-page h2 {
+    font-size: 3.5vw;
+}
+
+#titre-comp-1 {
+    animation: clign 1s infinite step-end;
+    border-right: solid 3px;
+    display: inline;
+    padding-right: 1px;
+}
+
+
+
+#design {
+    margin-top: 100px;
+    width: 15%;
+    height: 5vw;
+    position: absolute;
+}
+
+#design>svg {
+    animation: drawLine 8s ease-in-out infinite;
+    position: absolute;
+    transform: rotate(-45deg);
+    left: -5px;
+    top: -10px;
+    visibility: hidden;
+    z-index: 3;
+}
+
+
+
+#top-border {
+    border-top: solid #07689F;
+    transform: translateY(-2px);
+    transition: 1s;
+    width: 100%;
+    animation: extendRightLine 8s ease-in-out infinite;
+
+}
+
+#bottom-border {
+    border-top: solid #07689F;
+    transform: translateY(5vw);
+    width: 100%;
+    transition: 1s;
+    animation: extendLeftLine 8s ease-in-out infinite;
+
+}
+
+#right-border {
+    border-right: solid #07689F;
+    position: absolute;
+    transform: translate(calc(15vw - 1px), -1px);
+    height: 100%;
+    transition: 1s;
+    animation: extendDownLine 8s ease-in-out infinite;
+
+}
+
+#left-border {
+    border-left: solid #07689F;
+    position: absolute;
+    height: 100%;
+    transition: 1s;
+    animation: extendUpLine 8s ease-in-out infinite;
+
+}
+
+
+#h2-cont {
+    width: 95%;
+    height: 5vw;
+    text-align: center;
+
+    overflow: hidden;
+    animation: animH2 8s ease-in-out infinite;
+}
+
+#h2-cont>h2 {
+    margin-top: 0;
+}
+
+
+
+.square-comp {
+    width: 5px;
+    height: 5px;
+    border: solid #07689F;
+    position: absolute;
+    background-color: #FFF;
+    z-index: 20;
+
+}
+
+#square-1 {
+    left: -3.5px;
+    top: -5px;
+    transition: 1s;
+    visibility: hidden;
+    animation: square1 8s ease-in-out infinite;
+
+}
+
+#square-2 {
+    left: calc(100% - 5px);
+    top: -5px;
+    transition: 1s;
+    visibility: hidden;
+    animation: square2 8s ease-in-out infinite;
+
+}
+
+#square-3 {
+    left: calc(100% - 5px);
+    top: calc(100% - 4px);
+    transition: 1s;
+    visibility: hidden;
+    animation: square3 8s ease-in-out infinite;
+
+}
+
+#square-4 {
+    left: -3.5px;
+    top: calc(100% - 4px);
+    transition: 1s;
+    visibility: hidden;
+    animation: square4 8s ease-in-out infinite;
+
+}
+
+
+#sequence {
+    background-color: #729acc;
+    height: fit-content;
+    width: 25vw;
+    border: solid black 0.5px;
+    border-left: solid white 0.5px;
+    margin: 50px;
+    animation: animSequence 10s infinite;
+
+}
+
+#timecode {
+    width: 10px;
+    height: 10px;
+    background-color: #2e8ceb;
+    clip-path: polygon(100% 0, 100% 60%, 50% 100%, 0 60%, 0 0);
+    position: absolute;
+    transform: translate(-3px, -10px);
+    animation: animTimecode 10s infinite linear;
+}
+
+#h2-border {
+    animation: animBorderH2 10s infinite linear;
+    border-right: solid #2e8ceb 2px;
+    overflow: hidden;
+    width: 0%;
+}
+
+#h2-border>h2 {
+    margin: 0 1.5vw;
+    white-space: nowrap;
+}
