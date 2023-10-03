@@ -30,24 +30,53 @@
 
 
 
-i = 1;
+colors = [["--primary", "--primary-variant"], ["--secondary", "--secondary-variant"], ["--tertiary", "--tertiary-variant"], ["--quaternary", "--quaternary-variant"]];
+
+activeSection = 1;
 function changeSection(direction) {
     if (direction == "forward") {
-        document.querySelector(".active").classList.remove("active");
-        document.querySelector("header > nav > div:nth-child(" + (i + 1) + ")").classList.add("active");
-        i++;
+        document.querySelector("header .active").classList.remove("active");
+        document.querySelector("header > nav > article:nth-child(" + (activeSection + 1) + ")").classList.add("active");
+        activeSection++;
     }
     else if (direction == "backward") {
-        document.querySelector(".active").classList.remove("active");
-        document.querySelector("header > nav > div:nth-child(" + (i - 1) + ")").classList.add("active");
-        i--;
+        document.querySelector("header .active").classList.remove("active");
+        document.querySelector("header > nav > article:nth-child(" + (activeSection - 1) + ")").classList.add("active");
+        activeSection--;
     }
+
+    document.querySelector("header nav").scrollLeft += document.querySelector("header .active").getBoundingClientRect().left - 10;
 }
 
 
 var lastScrollTop = 0;
-firstSection = document.querySelectorAll("main section")[0];
+firstSection = document.querySelectorAll("main section")[1];
 lastSection = document.querySelectorAll("main section")[document.querySelectorAll("main section").length - 1];
+logo = document.querySelector("#main-logo");
+
+
+
+document.addEventListener("touchmove", () => {
+    var st = document.querySelector("main").scrollTop;
+    if (st > lastScrollTop) {
+        // downscroll
+        document.querySelectorAll("main section").forEach(element => {
+            if (element.getBoundingClientRect().top < window.innerHeight / 2 && Array.prototype.indexOf.call(element.parentNode.children, element) > activeSection - 1) {
+                changeSection("forward");
+            }
+        })
+    } else if (st < lastScrollTop) {
+        // upscroll
+        document.querySelectorAll("main section").forEach(element => {
+            if (element.getBoundingClientRect().top + element.offsetHeight > window.innerHeight / 2 && Array.prototype.indexOf.call(element.parentNode.children, element) < activeSection - 1) {
+                changeSection("backward");
+            }
+        })
+    } // else was horizontal scroll
+    lastScrollTop = st <= 0 ? 0 : st; // For Mobile or negative scrolling
+
+
+}, false);
 
 
 document.addEventListener("scroll", () => {
@@ -55,18 +84,16 @@ document.addEventListener("scroll", () => {
     if (st > lastScrollTop) {
         // downscroll
         document.querySelectorAll("main section").forEach(element => {
-
-            if (element.getBoundingClientRect().top < window.innerHeight / 2 && Array.prototype.indexOf.call(element.parentNode.children, element) > i - 1) {
+            if (element.getBoundingClientRect().top < window.innerHeight / 2 && Array.prototype.indexOf.call(element.parentNode.children, element) > activeSection - 1) {
                 changeSection("forward");
             }
         })
     } else if (st < lastScrollTop) {
         // upscroll
         document.querySelectorAll("main section").forEach(element => {
-            if (element.getBoundingClientRect().top + element.offsetHeight > window.innerHeight / 2 && Array.prototype.indexOf.call(element.parentNode.children, element) < i - 1) {
+            if (element.getBoundingClientRect().top + element.offsetHeight > window.innerHeight / 2 && Array.prototype.indexOf.call(element.parentNode.children, element) < activeSection - 1) {
                 changeSection("backward");
             }
-
         })
     } // else was horizontal scroll
     lastScrollTop = st <= 0 ? 0 : st; // For Mobile or negative scrolling
@@ -74,52 +101,49 @@ document.addEventListener("scroll", () => {
 
 
     document.querySelectorAll("main section").forEach(element => {
-        if (i == 1) {
-            if ((firstSection.getBoundingClientRect().top * -1) / (firstSection.offsetHeight - window.innerHeight / 2) * 100 > 0 && (firstSection.getBoundingClientRect().top * -1) / (firstSection.offsetHeight - window.innerHeight / 2) * 100 < 100) {
-                document.querySelectorAll(".scrollView > div > div")[i - 1].style.top = (firstSection.getBoundingClientRect().top * -1) / (firstSection.offsetHeight - window.innerHeight / 2) * 100 + "%";
-                document.querySelector("header > nav > div.active h2").style.transform = "translateX(" + (firstSection.getBoundingClientRect().top * -1) / (firstSection.offsetHeight - window.innerHeight / 2) * -75 + "%)";
-            }
-            else if ((firstSection.getBoundingClientRect().top * -1) / (firstSection.offsetHeight - window.innerHeight / 2) * 100 < 0) {
-                document.querySelectorAll(".scrollView > div > div")[i - 1].style.top = "0";
-                document.querySelector("header > nav > div.active h2").style.transform = "translateX(0%)";
+        //SCROLL POSITION
+        if (activeSection == 1) {
+            if (logo.getBoundingClientRect().top + logo.getBoundingClientRect().height > document.querySelector("header nav article:nth-child(1)").getBoundingClientRect().height) {
+                // console.log("AAAAAAh")
             }
         }
-        else if (i == document.querySelectorAll("main section").length) {
-            document.querySelectorAll(".scrollView > div > div")[i - 1].style.top = 100 - (lastSection.getBoundingClientRect().top + lastSection.offsetHeight - window.innerHeight) / (lastSection.offsetHeight * 0.75) * 100 + "%";
+        else if (activeSection == document.querySelectorAll("main section").length) {
+            document.querySelectorAll(".scrollView > div")[activeSection - 2].style.top = 100 - (lastSection.getBoundingClientRect().top + lastSection.offsetHeight - window.innerHeight) / (lastSection.offsetHeight * 0.75) * 100 + "%";
         }
         else {
             if (100 - ((element.getBoundingClientRect().top * -1) - element.offsetHeight + window.innerHeight / 2) / -element.offsetHeight * 100 > 0 && 100 - ((element.getBoundingClientRect().top * -1) - element.offsetHeight + window.innerHeight / 2) / -element.offsetHeight * 100 < 100) {
-                document.querySelectorAll(".scrollView > div > div")[i - 1].style.top = 100 - ((element.getBoundingClientRect().top * -1) - element.offsetHeight + window.innerHeight / 2) / -element.offsetHeight * 100 + "%";
+                document.querySelectorAll(".scrollView > div")[activeSection - 2].style.top = 100 - ((element.getBoundingClientRect().top * -1) - element.offsetHeight + window.innerHeight / 2) / -element.offsetHeight * 100 + "%";
             }
         }
 
-
-        if (i != 1 && i != document.querySelectorAll("main section").length && (115 - ((element.getBoundingClientRect().top * -1) - element.offsetHeight) / -element.offsetHeight * 115)*-1 < 0 && Array.prototype.indexOf.call(document.querySelectorAll("main section"), element) == i-1) {
-            document.querySelector("header > nav > div.active h2").style.transform = "translateX(" + (115 - ((element.getBoundingClientRect().top * -1) - element.offsetHeight) / -element.offsetHeight * 115)*-1 + "%)";
+        //H2 TRANSFORM
+        if (activeSection != 1 && activeSection != document.querySelectorAll("main section").length && (element.getBoundingClientRect().top * -1) / (element.offsetHeight - (window.innerHeight / 2)) * 85 > 0 && (element.getBoundingClientRect().top * -1) / (element.offsetHeight - (window.innerHeight / 2)) * 85 < 85) {
+            document.querySelector("header > nav > article.active h2").style.transform = "translateX(" + ((element.getBoundingClientRect().top * -1) / (element.offsetHeight - (window.innerHeight / 2)) * 85) * -1 + "%)";
         }
-        else if (Array.prototype.indexOf.call(document.querySelectorAll("main section"), element) == i-1 && 100 - ((element.getBoundingClientRect().top * -1) - element.offsetHeight + window.innerHeight / 2) / -element.offsetHeight * 100 > 0) {
-            document.querySelector("header > nav > div.active h2").style.transform = "translateX(0%)";
+        else if (activeSection == document.querySelectorAll("main section").length && ((element.getBoundingClientRect().top * -1) / (element.offsetHeight - window.innerHeight) * 85) > 0 ) {
+            document.querySelector("header > nav > article.active h2").style.transform = "translateX(" + ((element.getBoundingClientRect().top * -1) / (element.offsetHeight - window.innerHeight) * 85) * -1 + "%)";
         }
-        
-        if (i == document.querySelectorAll("main section").length && (75 - (lastSection.getBoundingClientRect().top + window.innerHeight) / lastSection.offsetHeight * 150)*-1 < 0) {
-            document.querySelector("header > nav > div.active h2").style.transform = "translateX(" + (75 - (lastSection.getBoundingClientRect().top + window.innerHeight) / lastSection.offsetHeight * 150)*-1 + "%)";
+        else if (Array.prototype.indexOf.call(document.querySelectorAll("main section"), element) == activeSection - 1 && 100 - ((element.getBoundingClientRect().top * -1) - element.offsetHeight + window.innerHeight / 2) / -element.offsetHeight * 100 > 0 && activeSection != 1) {
+            document.querySelector("header > nav > article.active h2").style.transform = "translateX(0%)";
         }
     })
 
 }, false);
 
 
-document.querySelectorAll("header > nav > div").forEach(element => {
+document.querySelectorAll("header > nav > article").forEach(element => {
     element.addEventListener("click", () => {
-        document.getElementById(document.querySelectorAll("main section")[Array.prototype.indexOf.call(document.querySelectorAll("header > nav > div"), element)].id).scrollIntoView({ behavior: "smooth" });
+        document.getElementById(document.querySelectorAll("main section")[Array.prototype.indexOf.call(document.querySelectorAll("header > nav > article"), element)].id).scrollIntoView({ behavior: "smooth" });
     })
 })
 
 
 
+
+
 //=========== COMPÉTENCES =============
 
-var i = 0;
+var posChar = 0;
 var text = "Développement Web";
 var tempoDev = 0;
 var isWriting = true;
@@ -136,13 +160,13 @@ function typeWritting() {
         }
         else {
             isWriting = true;
-            i = 0;
+            posChar = 0;
         }
 
     }
-    else if (i < text.length && isWriting == true) {
-        document.querySelector("#titre-comp-1").innerHTML += text.charAt(i);
-        i++;
+    else if (posChar < text.length && isWriting == true) {
+        document.querySelector("#titre-comp-1").innerHTML += text.charAt(posChar);
+        posChar++;
     }
     else {
         tempoDev = 50;
@@ -152,3 +176,89 @@ function typeWritting() {
 }
 
 typeWritting()
+
+
+
+
+// const elts = {
+//     text1: document.getElementById("text1"),
+//     text2: document.getElementById("text2")
+// };
+
+// const texts = [
+//     "Développeur",
+//     "Web",
+//     "Eric",
+//     "Mai",
+//     "Étudiant",
+// ];
+
+// const morphTime = 1;
+// const cooldownTime = 0.25;
+
+// let textIndex = texts.length - 1;
+// let time = new Date();
+// let morph = 0;
+// let cooldown = cooldownTime;
+
+// elts.text1.textContent = texts[textIndex % texts.length];
+// elts.text2.textContent = texts[(textIndex + 1) % texts.length];
+
+// function doMorph() {
+//     morph -= cooldown;
+//     cooldown = 0;
+
+//     let fraction = morph / morphTime;
+
+//     if (fraction > 1) {
+//         cooldown = cooldownTime;
+//         fraction = 1;
+//     }
+
+//     setMorph(fraction);
+// }
+
+// function setMorph(fraction) {
+//     elts.text2.style.filter = `blur(${Math.min(8 / fraction - 8, 100)}px)`;
+//     elts.text2.style.opacity = `${Math.pow(fraction, 0.4) * 100}%`;
+
+//     fraction = 1 - fraction;
+//     elts.text1.style.filter = `blur(${Math.min(8 / fraction - 8, 100)}px)`;
+//     elts.text1.style.opacity = `${Math.pow(fraction, 0.4) * 100}%`;
+
+//     elts.text1.textContent = texts[textIndex % texts.length];
+//     elts.text2.textContent = texts[(textIndex + 1) % texts.length];
+// }
+
+// function doCooldown() {
+//     morph = 0;
+
+//     elts.text2.style.filter = "";
+//     elts.text2.style.opacity = "100%";
+
+//     elts.text1.style.filter = "";
+//     elts.text1.style.opacity = "0%";
+// }
+
+// function animate() {
+//     requestAnimationFrame(animate);
+
+//     let newTime = new Date();
+//     let shouldIncrementIndex = cooldown > 0;
+//     let dt = (newTime - time) / 1000;
+//     time = newTime;
+
+//     cooldown -= dt;
+
+//     if (cooldown <= 0) {
+//         if (shouldIncrementIndex) {
+//             textIndex++;
+//         }
+
+//         doMorph();
+//     } else {
+//         doCooldown();
+//     }
+// }
+
+// animate();
