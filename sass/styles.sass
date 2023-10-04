@@ -1,16 +1,15 @@
 @import "_variables"
 @import "_base"
 
-header 
-    position: fixed
-    height: 100%
-    width: 200px
-    margin-left: 5px
-    z-index: 100
-    background-color: $background-color
-    
-    nav 
+header
+    nav
+        position: fixed
         height: 100%
+        width: 200px
+        margin-left: 5px
+        z-index: 100
+        background-color: $background-color
+
         display: flex
         flex-direction: column
         justify-content: space-between
@@ -38,38 +37,39 @@ header
                 h2
                     font-size: 200px
                     width: fit-content
+                    transition: 0.5s ease-out
 
                 div
                     display: flex
                     justify-content: space-between
 
-            &:nth-child(1) 
+            &:nth-child(1)
                 border: solid
                 color: $foreground-color
 
                 .title-container
                     width: 100%
 
-            &:nth-child(2) 
+            &:nth-child(2)
                 background-color: $primary-color
 
-            &:nth-child(3) 
+            &:nth-child(3)
                 background-color: $secondary-color
 
-            &:nth-child(4) 
+            &:nth-child(4)
                 background-color: $tertiary-color
 
-            &:nth-child(5) 
+            &:nth-child(5)
                 background-color: $quaternary-color
 
-            &:nth-child(6) 
+            &:nth-child(6)
                 background-color: $pentenary-color
 
-            &.active 
+            &.active
                 flex-grow: 1
                 // height: 100%
 
-            &:not(.active) > .scrollView, &:is(.active) .title-container > div > img 
+            &:not(.active) > .scrollView, &:is(.active) .title-container > div > img
                 opacity: 0
 
             .scrollView
@@ -88,35 +88,17 @@ header
                     background-color: $foreground-color
                     border-radius: 50px
                     position: relative
+            img
+                transition: 1s
 
-#presentation
-    height: 100vh
-    color: $foreground-color
-    display: flex
-    // flex-direction: column-reverse
-
-    h1
-        text-align: center
-        font-size: calc((100vw - 210px) / 4)
-        width: 100%
-
-#profil
-    display:grid
-
-    > div:not(#contact-screen)
-        border-radius: 10px
-        width: 200px
-        padding: 15px
-        background-color: $quaternary-color
-        margin: 10px
-        font-family: Sora
-        height: fit-content
-
-    #contact-screen
+    #contact-card
+        position: fixed
+        left: 50%
         overflow: hidden
         border-radius: 9px
         background-color: #F2F0F5
         display: flex
+        visibility: hidden
         flex-direction: column
         align-items: center
         width: 300px
@@ -132,6 +114,7 @@ header
             svg
                 width: 18px
                 margin-left: 5px
+                cursor: pointer
 
         #profil-picture
             overflow: hidden
@@ -140,10 +123,10 @@ header
             border-radius: 50%
 
             img
-                width: 175%
-                margin-left: -45px
-                margin-top: -40px
-        
+                width: 105%
+                margin-left: -5px
+                // margin-top: -40px
+
         #button-container
             width: 90%
             height: 40px
@@ -166,22 +149,82 @@ header
 
         h1
             margin: 0
-            font-weight: 800
-        
+            font-weight: 600
+            font-family: SF
+
         h2,a,p
             margin: 0 10px
             font-size: 14px
             font-family: SF
             text-decoration: none
             font-weight: 400
-        
+
         a
             color: #007AFF
-        
+
         div:last-child
             margin-bottom: 20px
 
-    
+        &.active
+            // display: flex
+            visibility: visible
+
+    #contact-card-button
+        background-color: $foreground-color
+        width: 40px
+        overflow: hidden
+        display: flex
+        align-items: center
+        padding: 5px
+        border-radius: 50%
+        gap: 5px
+        position: fixed
+        bottom: 20px
+        right: 20px
+        cursor: pointer
+        transition: width 0.2s ease-in-out, border-radius 0.1s ease-in-out 0.2s
+
+        svg, span
+            color: $background-color
+            fill: $background-color
+            flex: 0 0 fit-content
+        
+        .icon
+            display: flex
+
+        span:not(.icon)
+            margin-right: 5px
+            flex: 0 0 fit-content
+            text-wrap: nowrap
+
+        &:hover
+            width: 160px
+            border-radius: 10px
+            transition: width 0.2s ease-in-out 0.1s, border-radius 0.2s ease-in-out
+
+#presentation
+    height: 100vh
+    color: $foreground-color
+    display: flex
+    // flex-direction: column-reverse
+
+    h1
+        text-align: center
+        font-size: calc((100vw - 210px) / 4)
+        width: 100%
+
+#profil
+    display: grid
+
+    > div
+        border-radius: 10px
+        width: 200px
+        padding: 15px
+        background-color: $quaternary-color
+        margin: 10px
+        font-family: Sora
+        height: fit-content
+
 #video1
     object-fit: contain
     width: 100%
@@ -195,7 +238,6 @@ header
     bottom: 0
 
     filter: url(#threshold) blur(0.6px)
-
 
 #text1,
 #text2
@@ -214,35 +256,35 @@ header
     width: 100%
 
 @media screen and (max-width: 767px)
-  header
-    width: 100%
-    height: 100px
-    margin: 0
-    bottom: 0
+    header
+        nav
+            width: 100%
+            height: 60px
+            margin: 0
+            bottom: 0
 
-    nav
-        flex-direction: row
-        justify-content: space-between
-        gap: 0px
-        overflow-x: scroll
-        overflow-y: hidden
-        align-items: center
-
-        article
-            flex: 0 0 fit-content
-            margin-inline: 5px
-            padding: 0 10px
-            // height: 100%
+            flex-direction: row
+            justify-content: space-between
+            gap: 0px
+            overflow-x: scroll
+            overflow-y: hidden
             align-items: center
 
-            .scrollView
+            article
+                flex: 0 0 fit-content
+                margin-inline: 5px
+                padding: 0 10px
+                // height: 100%
+                align-items: center
+
+                .scrollView
+                    display: none
+
+            article:nth-child(1), h2, img
                 display: none
 
-    article:nth-child(1), h2, img
-      display: none
-
-  main
-    margin-left: 0
-    width: 100%
-    position: fixed
-    overflow-y: scroll
+    main
+        margin-left: 0
+        width: 100%
+        position: fixed
+        overflow-y: scroll
