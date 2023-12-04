@@ -16,10 +16,11 @@ header
         scroll-behavior: smooth
 
         article
-            color: $background-color
-            transition: 1s
-            transition-delay: 0.2s
-            border-radius: 10px
+            transition: flex-grow 1s 0.2s, transform 0.5s, box-shadow 0.5s
+            background-color: #FFFFFF
+            // border-style: double solid solid double
+            // border-width: 5px
+            border: solid 5px
             margin-block: 5px
             height: 40px
             overflow: hidden
@@ -27,6 +28,7 @@ header
             justify-content: space-between
             padding: 5px
             cursor: pointer
+            box-shadow: 5px 5px 0px 0 #000000CC
 
             .title-container
                 width: calc(100% - 30px)
@@ -38,32 +40,45 @@ header
                     font-size: 200px
                     width: fit-content
                     transition: 0.5s ease-out
+                    color: $background-color
+                    text-shadow: 10px 10px black,-3px -3px black, 3px 3px black,3px -3px black, -3px 3px black
 
                 div
                     display: flex
                     justify-content: space-between
 
             &:nth-child(1)
-                border: solid
                 color: $foreground-color
 
                 .title-container
                     width: 100%
 
             &:nth-child(2)
-                background-color: $primary-color
+                color: $primary-color
+                h2
+                    text-shadow: 10px 10px $primary-color,-3px -3px $primary-color, 3px 3px $primary-color,3px -3px $primary-color, -3px 3px $primary-color
+
 
             &:nth-child(3)
-                background-color: $secondary-color
+                color: $secondary-color
+                h2
+                    text-shadow: 10px 10px $secondary-color,-3px -3px $secondary-color, 3px 3px $secondary-color,3px -3px $secondary-color, -3px 3px $secondary-color
+
 
             &:nth-child(4)
-                background-color: $tertiary-color
+                color: $tertiary-color
+                h2
+                    text-shadow: 10px 10px $tertiary-color,-3px -3px $tertiary-color, 3px 3px $tertiary-color,3px -3px $tertiary-color, -3px 3px $tertiary-color
 
             &:nth-child(5)
-                background-color: $quaternary-color
+                color: $quaternary-color
+                h2
+                    text-shadow: 10px 10px $quaternary-color,-3px -3px $quaternary-color, 3px 3px $quaternary-color,3px -3px $quaternary-color, -3px 3px $quaternary-color
 
             &:nth-child(6)
-                background-color: $pentenary-color
+                color: $pentenary-color
+                h2
+                    text-shadow: 10px 10px $pentenary-color,-3px -3px $pentenary-color, 3px 3px $pentenary-color,3px -3px $pentenary-color, -3px 3px $pentenary-color
 
             &.active
                 flex-grow: 1
@@ -71,6 +86,11 @@ header
 
             &:not(.active) > .scrollView, &:is(.active) .title-container > div > img
                 opacity: 0
+
+            &:hover
+                box-shadow: 0px 0px 0px 0 #00000099
+                transform: translate(5px, 5px)
+                transition: 0.5s 
 
             .scrollView
                 width: 14px
@@ -90,84 +110,6 @@ header
                     position: relative
             img
                 transition: 1s
-
-    #contact-card
-        position: fixed
-        left: 50%
-        overflow: hidden
-        border-radius: 9px
-        background-color: #F2F0F5
-        display: flex
-        visibility: hidden
-        flex-direction: column
-        align-items: center
-        width: 300px
-        gap: 20px
-        height: fit-content
-        z-index: 999
-
-        #window-header
-            background-color: #E9E9E9
-            height: 25px
-            width: 100%
-            display: flex
-
-            svg
-                width: 18px
-                margin-left: 5px
-                cursor: pointer
-
-        #profil-picture
-            overflow: hidden
-            width: 100px
-            height: 100px
-            border-radius: 50%
-
-            img
-                width: 105%
-                margin-left: -5px
-
-        #button-container
-            width: 90%
-            height: 40px
-            display: flex
-            justify-content: space-between
-
-            div
-                flex: 0 0 calc((100% - 40px) / 4)
-                height: 100%
-                background-color: #FFFFFF
-                border-radius: 4.5px
-
-        .profil-info
-            background-color: #FFFFFF
-            border-radius: 4.5px
-            width: 90%
-            display: flex
-            flex-direction: column
-            padding-block: 5px
-
-        h1
-            margin: 0
-            font-weight: 600
-            font-family: SF
-
-        h2,a,p
-            margin: 0 10px
-            font-size: 14px
-            font-family: SF
-            text-decoration: none
-            font-weight: 400
-
-        a
-            color: #007AFF
-
-        div:last-child
-            margin-bottom: 20px
-
-        &.active
-            // display: flex
-            visibility: visible
 
     #contact-card-button
         background-color: $foreground-color
@@ -204,62 +146,240 @@ header
             transition: width 0.2s ease-in-out 0.1s, border-radius 0.2s ease-in-out
 
 #presentation
-    height: 100vh
     color: $foreground-color
     display: flex
-    // flex-direction: column-reverse
+    justify-content: center
+    align-items: center
 
-    h1
+    #container
+        flex: 0 0 100%
+        height: 80pt
+        filter: url(#threshold) blur(0.6px)
+
+    #text1,
+    #text2
+        position: absolute
+        width: 100%
+        display: inline-block
+        font-weight: 800
+        font-size: 10vw
+
         text-align: center
-        font-size: calc((100vw - 210px) / 4)
+
+        user-select: none
+
+    #video1
+        object-fit: contain
         width: 100%
 
 #profil
-    display: grid
+    display: flex
+    overflow: visible
+    flex-wrap: wrap
+    justify-content: space-evenly
+    min-height: 100vh
 
-    > div
-        border-radius: 10px
-        width: 200px
-        padding: 15px
-        background-color: $quaternary-color
-        margin: 10px
-        font-family: Sora
+    .profil-container
+        flex: 0 0 300px
+        border: solid red
+        display: flex
+        align-items: center
+
+        ul
+            padding: 0 10px
+            display: flex
+            flex-direction: column
+            justify-content: space-between
+            height: 90%
+
+            
+            li
+                font-family: SpaceGrotesk
+                font-size: 20px
+                border: solid 5px
+                box-shadow: 10px 10px 0px 0 #000000CC
+                padding: 10px
+
+    .info
+        display: flex
+        flex-direction: column
+        justify-content: space-between
+        align-items: center
+        padding-block: 5vh
+
+        div
+            border: solid 5px
+            width: 200px
+            padding: 15px
+            background-color: #FFFFFF
+            font-family: Sora
+            height: fit-content
+            box-shadow: 10px 10px 0px 0 #000000CC
+            
+
+
+    #contact-card
+        position: sticky
+        background-color: $background-color
+        top: calc( (100% - 530px) / 2 )
+        overflow: hidden
+        border: solid 5px
+        box-shadow: 10px 10px 0px 0 #000000CC
+        display: flex
+        flex-direction: column
+        align-items: center
+        width: 300px
+        gap: 20px
         height: fit-content
+        z-index: 999
 
-#video1
-    object-fit: contain
-    width: 100%
+        #window-header
+            border-bottom: solid 5px
+            height: 25px
+            width: 100%
+            display: flex
+            cursor: grab
 
-#container
-    position: absolute
-    margin: auto
-    width: 100vw
-    height: 80pt
-    top: 0
-    bottom: 0
+            svg
+                width: 18px
+                margin-left: 5px
+                cursor: pointer
 
-    filter: url(#threshold) blur(0.6px)
+            &:active
+                cursor: grabbing
 
-#text1,
-#text2
-    position: absolute
-    width: 100%
-    display: inline-block
-    font-weight: 800
-    font-size: calc((100vw - 210px) / 4)
+        #profil-picture
+            overflow: hidden
+            width: 100px
+            height: 100px
+            border: solid 5px
 
-    text-align: center
+            img
+                width: 105%
+                margin-left: -5px
 
-    user-select: none
+        #button-container
+            width: calc( 90% + 10px )
+            height: 40px
+            display: flex
+            justify-content: space-between
 
-.image1
-    width: 100%
+            div
+                flex: 0 0 calc((100% - 80px) / 4)
+                height: 100%
+                border: solid 5px
+
+
+        .profil-info
+            width: 90%
+            display: flex
+            flex-direction: column
+            padding-block: 5px
+            border: solid 5px
+
+
+        h1
+            margin: 0
+            font-weight: 600
+            font-family: SpaceGrotesk
+
+        h2
+            font-family: SpaceGrotesk
+
+        a,p
+            font-family: Sora
+
+
+        h2,a,p
+            margin: 0 10px
+            font-size: 14px
+            text-decoration: none
+            font-weight: 400
+
+        a
+            color: #007AFF
+
+        div:last-child
+            margin-bottom: 20px
+
+        &.active
+            position: fixed
+            left: calc( (100% - 85px) / 2 )
+
+#portfolio
+    display: flex
+
+    .project-list
+        flex: 0 0 100%
+        height: 100%
+        border: solid red
+
+        .header
+            border: solid 5px
+            height: calc( 10% - 10px )
+
+            li
+                display: flex
+                align-items: center
+                font-family: SpaceGrotesk
+                font-size: 20px
+
+                input
+                    width: 30px
+                    height: 30px
+                    margin: 0 10px 0 0
+                    z-index: 2
+                    opacity: 0
+
+
+                .checkmark
+                    border: solid 5px
+                    width: 20px
+                    height: 20px
+                    display: block
+                    position: absolute
+                    z-index: 1
+                    box-shadow: 5px 5px 0px 0 #000000CC
+                    transition: 0.5s
+
+                    &:after
+                        content: ""
+                        position: absolute
+                        display: none
+                        left: 4px
+                        top: 0px
+                        width: 8px
+                        height: 13px
+                        border: solid 
+                        border-width: 0 4px 4px 0
+                        -webkit-transform: rotate(45deg)
+                        -ms-transform: rotate(45deg)
+                        transform: rotate(45deg)
+
+                input:checked ~ .checkmark
+                    box-shadow: 0px 0px 0px 0 #00000099
+                    transform: translate(5px, 5px)
+                    
+                input:checked ~ .checkmark:after
+                    display: block
+                
+                input:hover ~ .checkmark
+                    box-shadow: 0px 0px 0px 0 #00000099
+                    transform: translate(5px, 5px)
+        
+        .main
+            border: solid 5px
+            height: calc( 90% - 10px )
+    
+    .project-viewer
+        border: solid 5px
+        display: none
 
 @media screen and (max-width: 767px)
     header
         nav
             width: 100%
-            height: 60px
+            height: 80px
             margin: 0
             bottom: 0
 

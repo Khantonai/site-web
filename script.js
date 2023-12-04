@@ -140,6 +140,8 @@ document.querySelectorAll("header > nav > article").forEach(element => {
 function showContactCard() {
     if (document.querySelector("#contact-card").classList.contains("active")) {
         document.querySelector("#contact-card").classList.remove("active");
+        document.querySelector("#contact-card").style.left = "";
+        document.querySelector("#contact-card").style.top = "";
         document.querySelector("#contact-card-button .icon").innerHTML = '<svg width="40" height="40" version="1.1" id="Calque_4" xmlns="http://www.w3.org/2000/svg"                     xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 800 800"                     style="enable-background:new 0 0 800 800;" xml:space="preserve">                     <path d="M133.3,642.7c0,50,40.6,90.6,90.6,90.6h352.2c50,0,90.6-40.6,90.6-90.6V157.3c0-50-40.6-90.6-90.6-90.6H223.9            c-50,0-90.6,40.6-90.6,90.6V642.7z M400,250c36.8,0,66.7,29.8,66.7,66.7s-29.8,66.7-66.7,66.7s-66.7-29.8-66.7-66.7            S363.2,250,400,250z M273.7,540.5c23.6-69.8,99.3-107.2,169-83.6c39.4,13.3,70.3,44.2,83.6,83.6c5.4,17.5-4.4,36-21.9,41.4            c-3.3,1-6.7,1.5-10.1,1.5H306c-18.4,0.2-33.5-14.6-33.7-33C272.3,547,272.7,543.7,273.7,540.5z" />                 </svg>'
     }
     else {
@@ -162,7 +164,7 @@ contactDragArea.addEventListener("mousedown", function (event) {
 });
 
 document.addEventListener("mousemove", function (event) {
-    if (isDraggingContact) {
+    if (isDraggingContact &&  contactCard.classList.contains("active")) {
         // Calculate the new position of the div
         var newLeft = event.clientX - dragOffsetContact.x;
         var newTop = event.clientY - dragOffsetContact.y;
@@ -241,85 +243,84 @@ typeWritting()
 
 
 
-// const elts = {
-//     text1: document.getElementById("text1"),
-//     text2: document.getElementById("text2")
-// };
+const elts = {
+    text1: document.getElementById("text1"),
+    text2: document.getElementById("text2")
+};
 
-// const texts = [
-//     "Développeur",
-//     "Web",
-//     "Eric",
-//     "Mai",
-//     "Étudiant",
-// ];
+const texts = [
+    "Développeur",
+    "Web",
+    "Eric Mai",
+    "Étudiant",
+];
 
-// const morphTime = 1;
-// const cooldownTime = 0.25;
+const morphTime = 1;
+const cooldownTime = 0.25;
 
-// let textIndex = texts.length - 1;
-// let time = new Date();
-// let morph = 0;
-// let cooldown = cooldownTime;
+let textIndex = texts.length - 1;
+let time = new Date();
+let morph = 0;
+let cooldown = cooldownTime;
 
-// elts.text1.textContent = texts[textIndex % texts.length];
-// elts.text2.textContent = texts[(textIndex + 1) % texts.length];
+elts.text1.textContent = texts[textIndex % texts.length];
+elts.text2.textContent = texts[(textIndex + 1) % texts.length];
 
-// function doMorph() {
-//     morph -= cooldown;
-//     cooldown = 0;
+function doMorph() {
+    morph -= cooldown;
+    cooldown = 0;
 
-//     let fraction = morph / morphTime;
+    let fraction = morph / morphTime;
 
-//     if (fraction > 1) {
-//         cooldown = cooldownTime;
-//         fraction = 1;
-//     }
+    if (fraction > 1) {
+        cooldown = cooldownTime;
+        fraction = 1;
+    }
 
-//     setMorph(fraction);
-// }
+    setMorph(fraction);
+}
 
-// function setMorph(fraction) {
-//     elts.text2.style.filter = `blur(${Math.min(8 / fraction - 8, 100)}px)`;
-//     elts.text2.style.opacity = `${Math.pow(fraction, 0.4) * 100}%`;
+function setMorph(fraction) {
+    elts.text2.style.filter = `blur(${Math.min(8 / fraction - 8, 100)}px)`;
+    elts.text2.style.opacity = `${Math.pow(fraction, 0.4) * 100}%`;
 
-//     fraction = 1 - fraction;
-//     elts.text1.style.filter = `blur(${Math.min(8 / fraction - 8, 100)}px)`;
-//     elts.text1.style.opacity = `${Math.pow(fraction, 0.4) * 100}%`;
+    fraction = 1 - fraction;
+    elts.text1.style.filter = `blur(${Math.min(8 / fraction - 8, 100)}px)`;
+    elts.text1.style.opacity = `${Math.pow(fraction, 0.4) * 100}%`;
 
-//     elts.text1.textContent = texts[textIndex % texts.length];
-//     elts.text2.textContent = texts[(textIndex + 1) % texts.length];
-// }
+    elts.text1.textContent = texts[textIndex % texts.length];
+    elts.text2.textContent = texts[(textIndex + 1) % texts.length];
+}
 
-// function doCooldown() {
-//     morph = 0;
+function doCooldown() {
+    morph = 0;
 
-//     elts.text2.style.filter = "";
-//     elts.text2.style.opacity = "100%";
+    elts.text2.style.filter = "";
+    elts.text2.style.opacity = "100%";
 
-//     elts.text1.style.filter = "";
-//     elts.text1.style.opacity = "0%";
-// }
+    elts.text1.style.filter = "";
+    elts.text1.style.opacity = "0%";
+}
 
-// function animate() {
-//     requestAnimationFrame(animate);
+function animate() {
+    requestAnimationFrame(animate);
 
-//     let newTime = new Date();
-//     let shouldIncrementIndex = cooldown > 0;
-//     let dt = (newTime - time) / 1000;
-//     time = newTime;
+    let newTime = new Date();
+    let shouldIncrementIndex = cooldown > 0;
+    let dt = (newTime - time) / 1000;
+    time = newTime;
 
-//     cooldown -= dt;
+    cooldown -= dt;
 
-//     if (cooldown <= 0) {
-//         if (shouldIncrementIndex) {
-//             textIndex++;
-//         }
+    if (cooldown <= 0) {
+        if (shouldIncrementIndex) {
+            textIndex++;
+        }
 
-//         doMorph();
-//     } else {
-//         doCooldown();
-//     }
-// }
+        doMorph();
+    } else {
+        doCooldown();
+    }
+}
 
-// animate();
+animate();
