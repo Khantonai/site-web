@@ -7,14 +7,6 @@
   font-family: Sora;
   src: url(../fonts/Sora-Light.ttf);
 }
-@font-face {
-  font-family: SF;
-  src: url(../fonts/SF-Pro.ttf);
-}
-@font-face {
-  font-family: SF-Semibold;
-  src: url(../fonts/SF-Pro-Text-Semibold.otf);
-}
 @keyframes Floating {
   0% {
     transform: translateY(0px);
