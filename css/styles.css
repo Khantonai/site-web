@@ -7,15 +7,9 @@
   font-family: Sora;
   src: url(../fonts/Sora-Light.ttf);
 }
-@keyframes Floating {
-  0% {
-    transform: translateY(0px);
-  }
+@keyframes Blink {
   50% {
-    transform: translateY(10px);
-  }
-  100% {
-    transform: translateY(0px);
+    border-right: solid 3px #FFFFFF;
   }
 }
 body {
@@ -51,7 +45,7 @@ main section {
   border: solid;
 }
 
-main section:not(#profil) {
+main section:not(#profil, #competences) {
   height: 100vh;
 }
 
@@ -169,10 +163,10 @@ header nav article img {
   transition: 1s;
 }
 header #contact-card-button {
+  display: none;
   background-color: #04183B;
   width: 40px;
   overflow: hidden;
-  display: flex;
   align-items: center;
   padding: 5px;
   border-radius: 50%;
@@ -358,32 +352,55 @@ header #contact-card-button:hover {
   left: calc((100% - 85px) / 2);
 }
 
+#competences {
+  padding-block: 20px;
+}
+#competences h2 {
+  font-size: 60px;
+  text-align: center;
+}
+#competences article {
+  border: solid 5px;
+  height: 90vh;
+  padding: 10px;
+}
+#competences article h3 {
+  font-size: 60px;
+}
+#competences article .dev-skill-title {
+  animation: Blink 1s infinite step-end;
+  border-right: solid 3px;
+}
+
 #portfolio {
   display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 20px;
 }
-#portfolio .project-list {
-  flex: 0 0 100%;
-  height: 100%;
-  border: solid red;
-}
-#portfolio .project-list .header {
+#portfolio .header {
   border: solid 5px;
-  height: calc(10% - 10px);
+  height: fit-content;
 }
-#portfolio .project-list .header li {
+#portfolio .header ul {
+  display: flex;
+  flex-wrap: wrap;
+}
+#portfolio .header ul li {
   display: flex;
   align-items: center;
   font-family: SpaceGrotesk;
-  font-size: 20px;
+  font-size: min(35px, 4vw);
+  margin: 0 30px;
 }
-#portfolio .project-list .header li input {
+#portfolio .header ul li input {
   width: 30px;
   height: 30px;
   margin: 0 10px 0 0;
   z-index: 2;
   opacity: 0;
 }
-#portfolio .project-list .header li .checkmark {
+#portfolio .header ul li .checkmark {
   border: solid 5px;
   width: 20px;
   height: 20px;
@@ -393,7 +410,7 @@ header #contact-card-button:hover {
   box-shadow: 5px 5px 0px 0 rgba(0, 0, 0, 0.8);
   transition: 0.5s;
 }
-#portfolio .project-list .header li .checkmark:after {
+#portfolio .header ul li .checkmark:after {
   content: "";
   position: absolute;
   display: none;
@@ -407,24 +424,51 @@ header #contact-card-button:hover {
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
 }
-#portfolio .project-list .header li input:checked ~ .checkmark {
+#portfolio .header ul li input:checked ~ .checkmark {
   box-shadow: 0px 0px 0px 0 rgba(0, 0, 0, 0.6);
   transform: translate(5px, 5px);
 }
-#portfolio .project-list .header li input:checked ~ .checkmark:after {
+#portfolio .header ul li input:checked ~ .checkmark:after {
   display: block;
 }
-#portfolio .project-list .header li input:hover ~ .checkmark {
+#portfolio .header ul li input:hover ~ .checkmark {
   box-shadow: 0px 0px 0px 0 rgba(0, 0, 0, 0.6);
   transform: translate(5px, 5px);
 }
-#portfolio .project-list .main {
-  border: solid 5px;
-  height: calc(90% - 10px);
+#portfolio .main {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  gap: 20px;
 }
-#portfolio .project-viewer {
+#portfolio .main .project-list {
   border: solid 5px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, max(150px, (100vw - 220px) / 5));
+  grid-auto-rows: max(150px, (100vw - 220px) / 5);
+  gap: 10px;
+  padding: 10px;
+  transition: 0.5s;
+  flex: 0 0 calc(100% - 30px);
+}
+#portfolio .main .project-list article {
+  border: solid 5px;
+  background-color: blue;
+}
+#portfolio .main .project-list.active {
+  flex: 0 0 0px;
+  grid-template-columns: 150px;
+  grid-template-rows: repeat(auto-fill, 150px);
+}
+#portfolio .main .project-viewer {
+  border: solid 5px;
+  width: 100%;
   display: none;
+  background-color: red;
+  transition: 0.5s;
+}
+#portfolio .main .project-viewer.active {
+  display: block;
 }
 
 @media screen and (max-width: 767px) {

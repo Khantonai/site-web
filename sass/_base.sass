@@ -1,3 +1,7 @@
+@keyframes Blink 
+    50% 
+        border-right: solid 3px $background-color
+    
 body
     background-color: $background-color
     font-family: Sora, sans-serif
@@ -26,7 +30,7 @@ main section
     border: solid
     // overflow: hidden
 
-main section:not(#profil)
+main section:not(#profil, #competences)
     height: 100vh
 
 li

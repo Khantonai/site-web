@@ -112,10 +112,11 @@ header
                 transition: 1s
 
     #contact-card-button
+        display: none
         background-color: $foreground-color
         width: 40px
         overflow: hidden
-        display: flex
+        // display: flex
         align-items: center
         padding: 5px
         border-radius: 50%
@@ -215,8 +216,6 @@ header
             font-family: Sora
             height: fit-content
             box-shadow: 10px 10px 0px 0 #000000CC
-            
-
 
     #contact-card
         position: sticky
@@ -306,23 +305,49 @@ header
             position: fixed
             left: calc( (100% - 85px) / 2 )
 
+#competences
+    // display: flex
+    // justify-content: space-evenly
+    padding-block: 20px
+
+    h2
+        font-size: 60px
+        text-align: center
+
+    article
+        // display: flex
+        // justify-content: center
+        border: solid 5px
+        height: 90vh
+        padding: 10px
+
+        h3
+            font-size: 60px
+
+        .dev-skill-title
+            animation: Blink 1s infinite step-end
+            border-right: solid 3px
+
 #portfolio
     display: flex
+    flex-direction: column
+    justify-content: space-between
+    gap: 20px
 
-    .project-list
-        flex: 0 0 100%
-        height: 100%
-        border: solid red
+    .header
+        border: solid 5px
+        height: fit-content
 
-        .header
-            border: solid 5px
-            height: calc( 10% - 10px )
+        ul
+            display: flex
+            flex-wrap: wrap
 
             li
                 display: flex
                 align-items: center
                 font-family: SpaceGrotesk
-                font-size: 20px
+                font-size: min(35px, 4vw)
+                margin: 0 30px
 
                 input
                     width: 30px
@@ -366,14 +391,43 @@ header
                 input:hover ~ .checkmark
                     box-shadow: 0px 0px 0px 0 #00000099
                     transform: translate(5px, 5px)
-        
-        .main
-            border: solid 5px
-            height: calc( 90% - 10px )
     
-    .project-viewer
-        border: solid 5px
-        display: none
+    .main
+        width: 100%
+        height: 100%
+        display: flex
+        gap: 20px
+
+        .project-list
+            border: solid 5px
+            display: grid
+            grid-template-columns: repeat(auto-fill, max(150px, calc( (100vw - 220px) / 5 )))
+            grid-auto-rows: max(150px, calc( (100vw - 220px) / 5 ))
+            gap: 10px
+            padding: 10px
+            transition: 0.5s
+            flex: 0 0 calc( 100% - 30px )
+
+            article
+                border: solid 5px
+                background-color: blue
+
+            &.active
+                flex: 0 0 0px
+                grid-template-columns: 150px
+                grid-template-rows: repeat(auto-fill, 150px)
+                
+
+        .project-viewer
+            border: solid 5px
+            // flex: 0 0 100%
+            width: 100%
+            display: none
+            background-color: red
+            transition: 0.5s
+
+            &.active
+                display: block
 
 @media screen and (max-width: 767px)
     header

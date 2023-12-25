@@ -210,6 +210,7 @@ var posChar = 0;
 var text = "Développement Web";
 var tempoDev = 0;
 var isWriting = true;
+var devTitle = document.querySelector(".dev-skill-title");
 
 
 function typeWritting() {
@@ -217,8 +218,8 @@ function typeWritting() {
         tempoDev -= 1;
     }
     else if (tempoDev == 0 && isWriting == false) {
-        if (document.querySelector("#titre-comp-1").innerHTML.length > 0) {
-            document.querySelector("#titre-comp-1").innerHTML = document.querySelector("#titre-comp-1").innerHTML.slice(0, -1);
+        if (devTitle.innerHTML.length > 0) {
+            devTitle.innerHTML = devTitle.innerHTML.slice(0, -1);
 
         }
         else {
@@ -228,7 +229,7 @@ function typeWritting() {
 
     }
     else if (posChar < text.length && isWriting == true) {
-        document.querySelector("#titre-comp-1").innerHTML += text.charAt(posChar);
+        devTitle.innerHTML += text.charAt(posChar);
         posChar++;
     }
     else {
@@ -324,3 +325,21 @@ function animate() {
 }
 
 animate();
+
+
+
+document.querySelectorAll("#portfolio article").forEach(element => {
+    element.addEventListener("click", () => {
+
+        try {
+            document.querySelector("#portfolio article.active").classList.remove("active");
+        }
+        catch (e) {
+
+        }
+        element.classList.add("active");
+        document.querySelector(".project-viewer").classList.add("active");
+        document.querySelector(".project-list").classList.add("active");
+
+    })
+})
