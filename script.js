@@ -273,7 +273,7 @@ const texts = [
 ];
 
 const morphTime = 1;
-const cooldownTime = 0.25;
+const cooldownTime = 1;
 
 let animatingPres = true
 let textIndex = texts.length - 1;
