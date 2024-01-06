@@ -6,6 +6,12 @@ $tertiary-color: #61C9A8
 $quaternary-color: #EEBB55
 $pentenary-color: #DAB6FC
 
+$bold-border: 5px solid $foreground-color 
+
+$bold-shadow: 10px 10px 0px 0 #000000CC
+$light-shadow: 5px 5px 0px 0 #000000CC
+$hover-shadow: 0px 0px 0px 0 #00000099
+
 /* https://coolors.co/04183b-f7f7e9-3e7cb1-e54b4b-61c9a8-eebb55-dab6fc */
 
 
@@ -19,4 +25,26 @@ $pentenary-color: #DAB6FC
   src: url(../fonts/Sora-Light.ttf)
 
 
+@keyframes Blink 
+    50% 
+        border-right: solid 3px $background-color
+
+@keyframes LandingFade
+    0%
+        opacity: 0
+        transform: translateY( -25px) scale(0.95)
+    20%
+        transform: translateY(-50px) scale(1.03)
+    
+    100%
+        opacity: 1
+        transform: translateY(0px) scale(1)
+
+@keyframes PopUp
+    0%,100%
+        transform: scale(1)
+    50%
+        transform: scale(1.1)
+        
+    
 

@@ -7,7 +7,7 @@ header
         height: 100%
         width: 200px
         margin-left: 5px
-        z-index: 100
+        z-index: 999
         background-color: $background-color
 
         display: flex
@@ -20,7 +20,7 @@ header
             background-color: #FFFFFF
             // border-style: double solid solid double
             // border-width: 5px
-            border: solid 5px
+            border: 5px solid
             margin-block: 5px
             height: 40px
             overflow: hidden
@@ -28,7 +28,7 @@ header
             justify-content: space-between
             padding: 5px
             cursor: pointer
-            box-shadow: 5px 5px 0px 0 #000000CC
+            box-shadow: $light-shadow
 
             .title-container
                 width: calc(100% - 30px)
@@ -88,7 +88,7 @@ header
                 opacity: 0
 
             &:hover
-                box-shadow: 0px 0px 0px 0 #00000099
+                box-shadow: $hover-shadow
                 transform: translate(5px, 5px)
                 transition: 0.5s 
 
@@ -151,6 +151,7 @@ header
     display: flex
     justify-content: center
     align-items: center
+    height: 110vh
 
     #container
         flex: 0 0 100%
@@ -169,89 +170,130 @@ header
 
         user-select: none
 
-    #video1
-        object-fit: contain
-        width: 100%
-
 #profil
     display: flex
     overflow: visible
     flex-wrap: wrap
     justify-content: space-evenly
     min-height: 100vh
+    gap: 100px
+    padding-bottom: 30vh
 
     .profil-container
-        flex: 0 0 300px
-        border: solid red
+        width: 95vw
+        max-width: 600px
         display: flex
-        align-items: center
+        flex-direction: column
+        gap: 200px
+
+        .profil-text
+            display: flex
+            flex-direction: column
+            gap: 150px
+
+            article
+                border: $bold-border
+                padding: 40px
+                background-color: #FFFFFF
+                font-family: Sora
+                height: fit-content
+                box-shadow: $bold-shadow
+                font-size: min(4vw, 26px)
+                opacity: 0
+                
+                &.animate
+                    animation: LandingFade 1s ease-out
+                    opacity: 1
+
+                &:nth-child(1)
+                    margin-right: 40%
+
+                &:nth-child(2)
+                    margin-left: 25%
+                
+                &:nth-child(3)
+                    margin-right: 15%
+            
+
 
         ul
             padding: 0 10px
             display: flex
             flex-direction: column
-            justify-content: space-between
+            align-items: center
+            gap: 200px
             height: 90%
-
             
             li
+                position: relative
                 font-family: SpaceGrotesk
-                font-size: 20px
-                border: solid 5px
-                box-shadow: 10px 10px 0px 0 #000000CC
+                width: fit-content
+                text-align: center
+                font-size: 26px
+                border: $bold-border
+                box-shadow: $bold-shadow
                 padding: 10px
+                transition: 0.5s    
 
-    .info
-        display: flex
-        flex-direction: column
-        justify-content: space-between
-        align-items: center
-        padding-block: 5vh
+                &::before
+                    content: ""
+                    position: absolute
+                    top: 0
+                    right: 0
+                    bottom: 0
+                    left: 0
+                    background-color: red
+                    clip-path: circle(0%)
+                    z-index: -1
+                    transition: 0.5s
+                
+                &:nth-child(1)::before
+                    background-color: $foreground-color
 
-        div
-            border: solid 5px
-            width: 200px
-            padding: 15px
-            background-color: #FFFFFF
-            font-family: Sora
-            height: fit-content
-            box-shadow: 10px 10px 0px 0 #000000CC
+                &:nth-child(2)::before
+                    background-color: $primary-color
+
+                &:nth-child(3)::before
+                    background-color: $secondary-color
+
+                &:nth-child(4)::before
+                    background-color: $tertiary-color
+
+                &:nth-child(5)::before
+                    background-color: $quaternary-color
+
+                &:nth-child(6)::before
+                    background-color: $pentenary-color
+                    
+
+                &.animate
+                    animation: PopUp 0.5s ease-out 0.15 s
+                    opacity: 1
+                    color: $background-color
+
+                    &::before
+                        clip-path: circle(100%)
 
     #contact-card
         position: sticky
         background-color: $background-color
-        top: calc( (100% - 530px) / 2 )
+        top: calc( (100% - 620px) / 2 )
         overflow: hidden
-        border: solid 5px
-        box-shadow: 10px 10px 0px 0 #000000CC
+        border: $bold-border
+        box-shadow: $bold-shadow
         display: flex
         flex-direction: column
         align-items: center
         width: 300px
         gap: 20px
         height: fit-content
-        z-index: 999
-
-        #window-header
-            border-bottom: solid 5px
-            height: 25px
-            width: 100%
-            display: flex
-            cursor: grab
-
-            svg
-                width: 18px
-                margin-left: 5px
-                cursor: pointer
-
-            &:active
-                cursor: grabbing
+        z-index: 998
 
         #profil-picture
             overflow: hidden
             width: 100px
             height: 100px
-            border: solid 5px
+            border: $bold-border
 
             img
                 width: 105%
@@ -266,15 +308,15 @@ header
             div
                 flex: 0 0 calc((100% - 80px) / 4)
                 height: 100%
-                border: solid 5px
+                border: $bold-border
 
 
-        .profil-info
+        .contact-info
             width: 90%
             display: flex
             flex-direction: column
             padding-block: 5px
-            border: solid 5px
+            border: $bold-border
 
 
         h1
@@ -305,28 +347,95 @@ header
             position: fixed
             left: calc( (100% - 85px) / 2 )
 
+@media screen and (max-height:620px)
+    #profil
+        flex-direction: column
+        align-items: center
+
+
 #competences
-    // display: flex
-    // justify-content: space-evenly
-    padding-block: 20px
+    display: flex
+    flex-direction: column
+    align-items: center
+    gap: 50px
 
     h2
         font-size: 60px
         text-align: center
 
-    article
-        // display: flex
-        // justify-content: center
-        border: solid 5px
+    #terminal
+        width: 80%
         height: 90vh
-        padding: 10px
+        color: $background-color
+        background-color: $foreground-color
+        overflow: scroll
 
-        h3
-            font-size: 60px
+        .window-header
+            border-bottom: 5px solid $background-color
 
-        .dev-skill-title
-            animation: Blink 1s infinite step-end
-            border-right: solid 3px
+        ul
+            padding: 0px
+            margin-top: 5px 
+
+            li
+                font-size: 24px
+                align-items: center
+                line-height: 1
+                // width: fit-content
+
+                &:not(.folder, .cmd)
+                    display: flex
+
+                    &:hover
+                        background-color: $background-color
+                        color: $foreground-color
+                        cursor: pointer
+
+                &.cmd
+                    margin-bottom: 5px
+
+                &.cmd::before
+                    content: "›"
+                    margin-inline: 5px
+                    font-size: 32px
+
+                &.multi-branch::before
+                    content: "├"
+                    font-family: monospace
+                    font-size: 40px
+                    margin-inline: 24px 5px
+                    font-weight: 100
+
+                &.multi-branch
+                    &.last-branch::before
+                        content: "└"
+
+                    .multi-branch::before
+                        content: "│ ├"
+
+                    .multi-branch:last-child::before
+                        content: "│ └"
+                    
+                    .last-branch::before
+                        content: "├"
+                        margin-inline: 60px 5px
+                    
+                    .last-branch:last-child::before
+                        content: "└"
+                        margin-inline: 60px 5px
+
+
+
+                .icon
+                    margin-left: 5px
+                    width: 32px
+
+        // h3
+        //     font-size: 60px
+
+        // .dev-skill-title
+        //     animation: Blink 1s infinite step-end
+        //     border-right: solid 3px
 
 #portfolio
     display: flex
@@ -335,7 +444,7 @@ header
     gap: 20px
 
     .header
-        border: solid 5px
+        border: $bold-border
         height: fit-content
 
         ul
@@ -358,13 +467,13 @@ header
 
 
                 .checkmark
-                    border: solid 5px
+                    border: $bold-border
                     width: 20px
                     height: 20px
                     display: block
                     position: absolute
                     z-index: 1
-                    box-shadow: 5px 5px 0px 0 #000000CC
+                    box-shadow: $light-shadow
                     transition: 0.5s
 
                     &:after
@@ -375,21 +484,21 @@ header
                         top: 0px
                         width: 8px
                         height: 13px
-                        border: solid 
+                        border: solid
                         border-width: 0 4px 4px 0
                         -webkit-transform: rotate(45deg)
                         -ms-transform: rotate(45deg)
                         transform: rotate(45deg)
 
                 input:checked ~ .checkmark
-                    box-shadow: 0px 0px 0px 0 #00000099
+                    box-shadow: $hover-shadow
                     transform: translate(5px, 5px)
                     
                 input:checked ~ .checkmark:after
                     display: block
                 
                 input:hover ~ .checkmark
-                    box-shadow: 0px 0px 0px 0 #00000099
+                    box-shadow: $hover-shadow
                     transform: translate(5px, 5px)
     
     .main
@@ -399,7 +508,7 @@ header
         gap: 20px
 
         .project-list
-            border: solid 5px
+            border: $bold-border
             display: grid
             grid-template-columns: repeat(auto-fill, max(150px, calc( (100vw - 220px) / 5 )))
             grid-auto-rows: max(150px, calc( (100vw - 220px) / 5 ))
@@ -409,7 +518,7 @@ header
             flex: 0 0 calc( 100% - 30px )
 
             article
-                border: solid 5px
+                border: $bold-border
                 background-color: blue
 
             &.active
@@ -419,7 +528,7 @@ header
                 
 
         .project-viewer
-            border: solid 5px
+            border: $bold-border
             // flex: 0 0 100%
             width: 100%
             display: none
@@ -463,6 +572,4 @@ header
     main
         margin-left: 0
         width: 100%
-        position: fixed
-        overflow-y: scroll
 

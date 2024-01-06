@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /* https://coolors.co/04183b-f7f7e9-3e7cb1-e54b4b-61c9a8-eebb55-dab6fc */
 @font-face {
   font-family: SpaceGrotesk;
@@ -10,6 +11,27 @@
 @keyframes Blink {
   50% {
     border-right: solid 3px #FFFFFF;
+  }
+}
+@keyframes LandingFade {
+  0% {
+    opacity: 0;
+    transform: translateY(-25px) scale(0.95);
+  }
+  20% {
+    transform: translateY(-50px) scale(1.03);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0px) scale(1);
+  }
+}
+@keyframes PopUp {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
   }
 }
 body {
@@ -35,17 +57,17 @@ h2 {
   margin: 0;
 }
 
+p {
+  margin: 0;
+}
+
 main {
   margin-left: 215px;
   height: 100%;
   width: calc(100% - 220px);
 }
 
-main section {
-  border: solid;
-}
-
-main section:not(#profil, #competences) {
+main section:not(#presentation, #profil, #competences) {
   height: 100vh;
 }
 
@@ -53,12 +75,27 @@ li {
   list-style-type: none;
 }
 
+.window-header {
+  border-bottom: 5px solid #04183B;
+  height: 25px;
+  width: 100%;
+  display: flex;
+}
+.window-header svg {
+  width: 18px;
+  margin-left: 5px;
+  cursor: pointer;
+}
+.window-header:active {
+  cursor: grabbing;
+}
+
 header nav {
   position: fixed;
   height: 100%;
   width: 200px;
   margin-left: 5px;
-  z-index: 100;
+  z-index: 999;
   background-color: #FFFFFF;
   display: flex;
   flex-direction: column;
@@ -68,7 +105,7 @@ header nav {
 header nav article {
   transition: flex-grow 1s 0.2s, transform 0.5s, box-shadow 0.5s;
   background-color: #FFFFFF;
-  border: solid 5px;
+  border: 5px solid;
   margin-block: 5px;
   height: 40px;
   overflow: hidden;
@@ -202,6 +239,7 @@ header #contact-card-button:hover {
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 110vh;
 }
 #presentation #container {
   flex: 0 0 100%;
@@ -218,10 +256,6 @@ header #contact-card-button:hover {
   text-align: center;
   user-select: none;
 }
-#presentation #video1 {
-  object-fit: contain;
-  width: 100%;
-}
 
 #profil {
   display: flex;
@@ -229,49 +263,107 @@ header #contact-card-button:hover {
   flex-wrap: wrap;
   justify-content: space-evenly;
   min-height: 100vh;
+  gap: 100px;
+  padding-bottom: 30vh;
 }
 #profil .profil-container {
-  flex: 0 0 300px;
-  border: solid red;
+  width: 95vw;
+  max-width: 600px;
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  gap: 200px;
+}
+#profil .profil-container .profil-text {
+  display: flex;
+  flex-direction: column;
+  gap: 150px;
+}
+#profil .profil-container .profil-text article {
+  border: 5px solid #04183B;
+  padding: 40px;
+  background-color: #FFFFFF;
+  font-family: Sora;
+  height: fit-content;
+  box-shadow: 10px 10px 0px 0 rgba(0, 0, 0, 0.8);
+  font-size: min(4vw, 26px);
+  opacity: 0;
+}
+#profil .profil-container .profil-text article.animate {
+  animation: LandingFade 1s ease-out;
+  opacity: 1;
+}
+#profil .profil-container .profil-text article:nth-child(1) {
+  margin-right: 40%;
+}
+#profil .profil-container .profil-text article:nth-child(2) {
+  margin-left: 25%;
+}
+#profil .profil-container .profil-text article:nth-child(3) {
+  margin-right: 15%;
 }
 #profil .profil-container ul {
   padding: 0 10px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  align-items: center;
+  gap: 200px;
   height: 90%;
 }
 #profil .profil-container ul li {
+  position: relative;
   font-family: SpaceGrotesk;
-  font-size: 20px;
-  border: solid 5px;
+  width: fit-content;
+  text-align: center;
+  font-size: 26px;
+  border: 5px solid #04183B;
   box-shadow: 10px 10px 0px 0 rgba(0, 0, 0, 0.8);
   padding: 10px;
+  transition: 0.5s;
 }
-#profil .info {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  padding-block: 5vh;
+#profil .profil-container ul li::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: red;
+  clip-path: circle(0%);
+  z-index: -1;
+  transition: 0.5s;
 }
-#profil .info div {
-  border: solid 5px;
-  width: 200px;
-  padding: 15px;
-  background-color: #FFFFFF;
-  font-family: Sora;
-  height: fit-content;
-  box-shadow: 10px 10px 0px 0 rgba(0, 0, 0, 0.8);
+#profil .profil-container ul li:nth-child(1)::before {
+  background-color: #04183B;
+}
+#profil .profil-container ul li:nth-child(2)::before {
+  background-color: #3E7CB1;
+}
+#profil .profil-container ul li:nth-child(3)::before {
+  background-color: #E54B4B;
+}
+#profil .profil-container ul li:nth-child(4)::before {
+  background-color: #61C9A8;
+}
+#profil .profil-container ul li:nth-child(5)::before {
+  background-color: #EEBB55;
+}
+#profil .profil-container ul li:nth-child(6)::before {
+  background-color: #DAB6FC;
+}
+#profil .profil-container ul li.animate {
+  animation: PopUp 0.5s ease-out 0.15 s;
+  opacity: 1;
+  color: #FFFFFF;
+}
+#profil .profil-container ul li.animate::before {
+  clip-path: circle(100%);
 }
 #profil #contact-card {
   position: sticky;
   background-color: #FFFFFF;
-  top: calc((100% - 530px) / 2);
+  top: calc((100% - 620px) / 2);
   overflow: hidden;
-  border: solid 5px;
+  border: 5px solid #04183B;
   box-shadow: 10px 10px 0px 0 rgba(0, 0, 0, 0.8);
   display: flex;
   flex-direction: column;
@@ -279,28 +371,13 @@ header #contact-card-button:hover {
   width: 300px;
   gap: 20px;
   height: fit-content;
-  z-index: 999;
-}
-#profil #contact-card #window-header {
-  border-bottom: solid 5px;
-  height: 25px;
-  width: 100%;
-  display: flex;
-  cursor: grab;
-}
-#profil #contact-card #window-header svg {
-  width: 18px;
-  margin-left: 5px;
-  cursor: pointer;
-}
-#profil #contact-card #window-header:active {
-  cursor: grabbing;
+  z-index: 998;
 }
 #profil #contact-card #profil-picture {
   overflow: hidden;
   width: 100px;
   height: 100px;
-  border: solid 5px;
+  border: 5px solid #04183B;
 }
 #profil #contact-card #profil-picture img {
   width: 105%;
@@ -315,14 +392,14 @@ header #contact-card-button:hover {
 #profil #contact-card #button-container div {
   flex: 0 0 calc((100% - 80px) / 4);
   height: 100%;
-  border: solid 5px;
+  border: 5px solid #04183B;
 }
-#profil #contact-card .profil-info {
+#profil #contact-card .contact-info {
   width: 90%;
   display: flex;
   flex-direction: column;
   padding-block: 5px;
-  border: solid 5px;
+  border: 5px solid #04183B;
 }
 #profil #contact-card h1 {
   margin: 0;
@@ -352,24 +429,84 @@ header #contact-card-button:hover {
   left: calc((100% - 85px) / 2);
 }
 
+@media screen and (max-height: 620px) {
+  #profil {
+    flex-direction: column;
+    align-items: center;
+  }
+}
 #competences {
-  padding-block: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 50px;
 }
 #competences h2 {
   font-size: 60px;
   text-align: center;
 }
-#competences article {
-  border: solid 5px;
+#competences #terminal {
+  width: 80%;
   height: 90vh;
-  padding: 10px;
+  color: #FFFFFF;
+  background-color: #04183B;
+  overflow: scroll;
 }
-#competences article h3 {
-  font-size: 60px;
+#competences #terminal .window-header {
+  border-bottom: 5px solid #FFFFFF;
 }
-#competences article .dev-skill-title {
-  animation: Blink 1s infinite step-end;
-  border-right: solid 3px;
+#competences #terminal ul {
+  padding: 0px;
+  margin-top: 5px;
+}
+#competences #terminal ul li {
+  font-size: 24px;
+  align-items: center;
+  line-height: 1;
+}
+#competences #terminal ul li:not(.folder, .cmd) {
+  display: flex;
+}
+#competences #terminal ul li:not(.folder, .cmd):hover {
+  background-color: #FFFFFF;
+  color: #04183B;
+  cursor: pointer;
+}
+#competences #terminal ul li.cmd {
+  margin-bottom: 5px;
+}
+#competences #terminal ul li.cmd::before {
+  content: "›";
+  margin-inline: 5px;
+  font-size: 32px;
+}
+#competences #terminal ul li.multi-branch::before {
+  content: "├";
+  font-family: monospace;
+  font-size: 40px;
+  margin-inline: 24px 5px;
+  font-weight: 100;
+}
+#competences #terminal ul li.multi-branch.last-branch::before {
+  content: "└";
+}
+#competences #terminal ul li.multi-branch .multi-branch::before {
+  content: "│ ├";
+}
+#competences #terminal ul li.multi-branch .multi-branch:last-child::before {
+  content: "│ └";
+}
+#competences #terminal ul li.multi-branch .last-branch::before {
+  content: "├";
+  margin-inline: 60px 5px;
+}
+#competences #terminal ul li.multi-branch .last-branch:last-child::before {
+  content: "└";
+  margin-inline: 60px 5px;
+}
+#competences #terminal ul li .icon {
+  margin-left: 5px;
+  width: 32px;
 }
 
 #portfolio {
@@ -379,7 +516,7 @@ header #contact-card-button:hover {
   gap: 20px;
 }
 #portfolio .header {
-  border: solid 5px;
+  border: 5px solid #04183B;
   height: fit-content;
 }
 #portfolio .header ul {
@@ -401,7 +538,7 @@ header #contact-card-button:hover {
   opacity: 0;
 }
 #portfolio .header ul li .checkmark {
-  border: solid 5px;
+  border: 5px solid #04183B;
   width: 20px;
   height: 20px;
   display: block;
@@ -442,7 +579,7 @@ header #contact-card-button:hover {
   gap: 20px;
 }
 #portfolio .main .project-list {
-  border: solid 5px;
+  border: 5px solid #04183B;
   display: grid;
   grid-template-columns: repeat(auto-fill, max(150px, (100vw - 220px) / 5));
   grid-auto-rows: max(150px, (100vw - 220px) / 5);
@@ -452,7 +589,7 @@ header #contact-card-button:hover {
   flex: 0 0 calc(100% - 30px);
 }
 #portfolio .main .project-list article {
-  border: solid 5px;
+  border: 5px solid #04183B;
   background-color: blue;
 }
 #portfolio .main .project-list.active {
@@ -461,7 +598,7 @@ header #contact-card-button:hover {
   grid-template-rows: repeat(auto-fill, 150px);
 }
 #portfolio .main .project-viewer {
-  border: solid 5px;
+  border: 5px solid #04183B;
   width: 100%;
   display: none;
   background-color: red;
@@ -502,7 +639,5 @@ header #contact-card-button:hover {
   main {
     margin-left: 0;
     width: 100%;
-    position: fixed;
-    overflow-y: scroll;
   }
 }/*# sourceMappingURL=styles.css.map */

@@ -1,35 +1,3 @@
-// // init controller
-// var controller = new ScrollMagic.Controller();
-
-// var blockTween = new TweenMax.to('#block', 1.5, {
-//     backgroundColor: 'red',
-//     height:'100vh'
-// });
-
-// var containerScene = new ScrollMagic.Scene({
-//     triggerElement: '#container',
-//     duration: 400
-// })
-// .setTween(blockTween)
-// .setPin("#container")
-// // .addIndicators()
-// .setClassToggle('.cc', 'dd')
-// .addTo(controller);
-
-
-// var navSectionCounter = 0;
-// document.querySelectorAll("header > nav > div").forEach(element => {
-//     if (element.classList.contains("active")) {
-//         document.querySelector(".active h1").style.top = (window.innerHeight / 2 - document.querySelector(".active").offsetTop) - parseFloat(window.getComputedStyle(document.querySelector(".active h1")).height.slice(0,-2)) + "px";
-//     }
-//     else{
-//         element.style.top = (element.querySelector("h1").offsetHeight + window.getComputedStyle(element.querySelector("h1")).margin.slice(0,2) * 2)  * navSectionCounter + "px";
-//     }
-//     navSectionCounter++;
-// })
-
-
-
 colors = [["--primary", "--primary-variant"], ["--secondary", "--secondary-variant"], ["--tertiary", "--tertiary-variant"], ["--quaternary", "--quaternary-variant"]];
 
 activeSection = 1;
@@ -64,6 +32,12 @@ document.querySelector("main").addEventListener("touchmove", () => {
                 changeSection("forward");
             }
         })
+
+        animateElement.forEach(element => {
+            if (element.getBoundingClientRect().top < window.innerHeight * 0.75) {
+                element.classList.add('animate');
+            }
+        });
     } else if (st < lastScrollTop) {
         // upscroll
         document.querySelectorAll("main section").forEach(element => {
@@ -71,6 +45,12 @@ document.querySelector("main").addEventListener("touchmove", () => {
                 changeSection("backward");
             }
         })
+
+        animateElement.forEach(element => {
+            if (element.getBoundingClientRect().top > window.innerHeight) {
+                element.classList.remove('animate');
+            }
+        });
     } // else was horizontal scroll
     lastScrollTop = st <= 0 ? 0 : st; // For Mobile or negative scrolling
 
@@ -87,6 +67,14 @@ document.addEventListener("scroll", () => {
                 changeSection("forward");
             }
         })
+
+        animateElement.forEach(element => {
+            if (element.getBoundingClientRect().top < window.innerHeight * 0.75) {
+                element.classList.add('animate');
+            }
+        });
+        
+        
     } else if (st < lastScrollTop) {
         // upscroll
         document.querySelectorAll("main section").forEach(element => {
@@ -94,6 +82,12 @@ document.addEventListener("scroll", () => {
                 changeSection("backward");
             }
         })
+
+        animateElement.forEach(element => {
+            if (element.getBoundingClientRect().top > window.innerHeight) {
+                element.classList.remove('animate');
+            }
+        });
     } // else was horizontal scroll
     lastScrollTop = st <= 0 ? 0 : st; // For Mobile or negative scrolling
 
@@ -129,6 +123,28 @@ document.addEventListener("scroll", () => {
 
 }, false);
 
+document.querySelector("main").addEventListener("scroll", () => {
+    var st = document.querySelector("main").scrollTop;
+    if (st > lastScrollTop) {
+        // downscroll
+
+        animateElement.forEach(element => {
+            if (element.getBoundingClientRect().top < window.innerHeight * 0.75) {
+                element.classList.add('animate');
+            }
+        });        
+    } else if (st < lastScrollTop) {
+        // upscroll
+
+        animateElement.forEach(element => {
+            if (element.getBoundingClientRect().top > window.innerHeight) {
+                element.classList.remove('animate');
+            }
+        });
+    } // else was horizontal scroll
+    lastScrollTop = st <= 0 ? 0 : st; // For Mobile or negative scrolling
+}, false);
+
 
 document.querySelectorAll("header > nav > article").forEach(element => {
     element.addEventListener("click", () => {
@@ -151,7 +167,7 @@ function showContactCard() {
 }
 
 var contactCard = document.querySelector("#contact-card");
-var contactDragArea = document.querySelector("#window-header");
+var contactDragArea = document.querySelector("#contact-card .window-header");
 var isDraggingContact = false;
 var dragOffsetContact = { x: 0, y: 0 };
 
@@ -206,40 +222,40 @@ document.addEventListener("mouseup", function (event) {
 
 //=========== COMPÉTENCES =============
 
-var posChar = 0;
-var text = "Développement Web";
-var tempoDev = 0;
-var isWriting = true;
-var devTitle = document.querySelector(".dev-skill-title");
+// var posChar = 0;
+// var text = "Développement Web";
+// var tempoDev = 0;
+// var isWriting = true;
+// var devTitle = document.querySelector(".dev-skill-title");
 
 
-function typeWritting() {
-    if (tempoDev > 0) {
-        tempoDev -= 1;
-    }
-    else if (tempoDev == 0 && isWriting == false) {
-        if (devTitle.innerHTML.length > 0) {
-            devTitle.innerHTML = devTitle.innerHTML.slice(0, -1);
+// function typeWritting() {
+//     if (tempoDev > 0) {
+//         tempoDev -= 1;
+//     }
+//     else if (tempoDev == 0 && isWriting == false) {
+//         if (devTitle.innerHTML.length > 0) {
+//             devTitle.innerHTML = devTitle.innerHTML.slice(0, -1);
 
-        }
-        else {
-            isWriting = true;
-            posChar = 0;
-        }
+//         }
+//         else {
+//             isWriting = true;
+//             posChar = 0;
+//         }
 
-    }
-    else if (posChar < text.length && isWriting == true) {
-        devTitle.innerHTML += text.charAt(posChar);
-        posChar++;
-    }
-    else {
-        tempoDev = 50;
-        isWriting = false;
-    }
-    setTimeout(typeWritting, 100);
-}
+//     }
+//     else if (posChar < text.length && isWriting == true) {
+//         devTitle.innerHTML += text.charAt(posChar);
+//         posChar++;
+//     }
+//     else {
+//         tempoDev = 50;
+//         isWriting = false;
+//     }
+//     setTimeout(typeWritting, 100);
+// }
 
-typeWritting()
+// typeWritting()
 
 
 
@@ -259,6 +275,7 @@ const texts = [
 const morphTime = 1;
 const cooldownTime = 0.25;
 
+let animatingPres = true
 let textIndex = texts.length - 1;
 let time = new Date();
 let morph = 0;
@@ -279,6 +296,7 @@ function doMorph() {
     }
 
     setMorph(fraction);
+    
 }
 
 function setMorph(fraction) {
@@ -304,7 +322,9 @@ function doCooldown() {
 }
 
 function animate() {
-    requestAnimationFrame(animate);
+    if (animatingPres == true) {
+        requestAnimationFrame(animate);
+    }
 
     let newTime = new Date();
     let shouldIncrementIndex = cooldown > 0;
@@ -343,3 +363,23 @@ document.querySelectorAll("#portfolio article").forEach(element => {
 
     })
 })
+
+// Sélectionnez l'élément à observer
+const animateElement = document.querySelectorAll('.profil-text article, .profil-list li');
+
+// Créez une nouvelle instance de l'observateur avec une fonction de rappel
+const observerPresentation = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+
+    if (entry.isIntersecting) {
+      animatingPres = true;
+      animate();
+    } 
+    else {
+      animatingPres = false;
+    }
+
+  });
+});
+
+observerPresentation.observe(document.querySelector('#presentation'));
