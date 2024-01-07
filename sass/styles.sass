@@ -152,23 +152,29 @@ header
     justify-content: center
     align-items: center
     height: 110vh
+    
+    h1
+        font-size: 9vw
+        animation: Blink 1s infinite step-end
+        border-right: solid 3px
 
-    #container
-        flex: 0 0 100%
-        height: 80pt
-        filter: url(#threshold) blur(0.6px)
 
-    #text1,
-    #text2
-        position: absolute
-        width: calc( 100vw - 220px )
-        display: inline-block
-        font-weight: 800
-        font-size: 10vw
-        text-align: center
-        user-select: none
-        -webkit-user-select: none
-        transform: translate3d(0, 0, 0)
+    // #container
+    //     flex: 0 0 100%
+    //     height: 80pt
+    //     filter: url(#threshold) blur(0.6px)
+
+    // #text1,
+    // #text2
+    //     position: absolute
+    //     width: calc( 100vw - 220px )
+    //     display: inline-block
+    //     font-weight: 800
+    //     font-size: 10vw
+    //     text-align: center
+    //     user-select: none
+    //     -webkit-user-select: none
+    //     transform: translate3d(0, 0, 0)
 
 #profil
     display: flex
@@ -365,13 +371,18 @@ header
 
     #terminal
         width: 80%
-        height: 90vh
+        height: 700px
         color: $background-color
         background-color: $foreground-color
-        overflow: scroll
+        display: flex
+        flex-direction: column
 
         .window-header
             border-bottom: 5px solid $background-color
+        
+        > ul
+            
+            overflow: scroll
 
         ul
             padding: 0px
@@ -429,6 +440,21 @@ header
                 .icon
                     margin-left: 5px
                     width: 32px
+        
+        #cmd-input
+            // height: 100%
+            position: absolute
+            // background-color: $foreground-color
+            // color: $background-color
+            // border: none
+            // outline: none
+            // font-family: Sora
+            font-size: 24px
+            width: calc( (100% - 260px) * 0.8 )
+            opacity: 0
+            // padding: 0 5px
+            // caret-color: none
+            // resize: none
 
         // h3
         //     font-size: 60px
@@ -572,4 +598,7 @@ header
     main
         margin-left: 0
         width: 100%
+    
+    #text1, #text2
+        width: 100% !important
 

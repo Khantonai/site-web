@@ -73,8 +73,8 @@ document.addEventListener("scroll", () => {
                 element.classList.add('animate');
             }
         });
-        
-        
+
+
     } else if (st < lastScrollTop) {
         // upscroll
         document.querySelectorAll("main section").forEach(element => {
@@ -132,7 +132,7 @@ document.querySelector("main").addEventListener("scroll", () => {
             if (element.getBoundingClientRect().top < window.innerHeight * 0.75) {
                 element.classList.add('animate');
             }
-        });        
+        });
     } else if (st < lastScrollTop) {
         // upscroll
 
@@ -180,7 +180,7 @@ contactDragArea.addEventListener("mousedown", function (event) {
 });
 
 document.addEventListener("mousemove", function (event) {
-    if (isDraggingContact &&  contactCard.classList.contains("active")) {
+    if (isDraggingContact && contactCard.classList.contains("active")) {
         // Calculate the new position of the div
         var newLeft = event.clientX - dragOffsetContact.x;
         var newTop = event.clientY - dragOffsetContact.y;
@@ -222,129 +222,145 @@ document.addEventListener("mouseup", function (event) {
 
 //=========== COMPÉTENCES =============
 
-// var posChar = 0;
-// var text = "Développement Web";
-// var tempoDev = 0;
-// var isWriting = true;
-// var devTitle = document.querySelector(".dev-skill-title");
-
-
-// function typeWritting() {
-//     if (tempoDev > 0) {
-//         tempoDev -= 1;
-//     }
-//     else if (tempoDev == 0 && isWriting == false) {
-//         if (devTitle.innerHTML.length > 0) {
-//             devTitle.innerHTML = devTitle.innerHTML.slice(0, -1);
-
-//         }
-//         else {
-//             isWriting = true;
-//             posChar = 0;
-//         }
-
-//     }
-//     else if (posChar < text.length && isWriting == true) {
-//         devTitle.innerHTML += text.charAt(posChar);
-//         posChar++;
-//     }
-//     else {
-//         tempoDev = 50;
-//         isWriting = false;
-//     }
-//     setTimeout(typeWritting, 100);
-// }
-
-// typeWritting()
-
-
-
-
-const elts = {
-    text1: document.getElementById("text1"),
-    text2: document.getElementById("text2")
-};
-
-const texts = [
-    "Développeur",
-    "Web",
+var posChar = 0;
+var textPres = [
     "Eric Mai",
+    "Développeur Web",
     "Étudiant",
 ];
+textCounter = 0;
+var tempoDev = 0;
+var isWriting = true;
+var devTitle = document.querySelector("#presentation h1");
 
-const morphTime = 1;
-const cooldownTime = 1;
 
-let animatingPres = true
-let textIndex = texts.length - 1;
-let time = new Date();
-let morph = 0;
-let cooldown = cooldownTime;
-
-elts.text1.textContent = texts[textIndex % texts.length];
-elts.text2.textContent = texts[(textIndex + 1) % texts.length];
-
-function doMorph() {
-    morph -= cooldown;
-    cooldown = 0;
-
-    let fraction = morph / morphTime;
-
-    if (fraction > 1) {
-        cooldown = cooldownTime;
-        fraction = 1;
+function typeWritting() {
+    if (tempoDev > 0) {
+        tempoDev -= 1;
     }
+    else if (tempoDev == 0 && isWriting == false) {
+        if (devTitle.innerHTML.length > 0) {
+            devTitle.innerHTML = devTitle.innerHTML.slice(0, -1);
 
-    setMorph(fraction);
-    
-}
-
-function setMorph(fraction) {
-    elts.text2.style.filter = `blur(${Math.min(8 / fraction - 8, 100)}px)`;
-    elts.text2.style.opacity = `${Math.pow(fraction, 0.4) * 100}%`;
-
-    fraction = 1 - fraction;
-    elts.text1.style.filter = `blur(${Math.min(8 / fraction - 8, 100)}px)`;
-    elts.text1.style.opacity = `${Math.pow(fraction, 0.4) * 100}%`;
-
-    elts.text1.textContent = texts[textIndex % texts.length];
-    elts.text2.textContent = texts[(textIndex + 1) % texts.length];
-}
-
-function doCooldown() {
-    morph = 0;
-
-    elts.text2.style.filter = "";
-    elts.text2.style.opacity = "100%";
-
-    elts.text1.style.filter = "";
-    elts.text1.style.opacity = "0%";
-}
-
-function animate() {
-    if (animatingPres == true) {
-        requestAnimationFrame(animate);
-    }
-
-    let newTime = new Date();
-    let shouldIncrementIndex = cooldown > 0;
-    let dt = (newTime - time) / 1000;
-    time = newTime;
-
-    cooldown -= dt;
-
-    if (cooldown <= 0) {
-        if (shouldIncrementIndex) {
-            textIndex++;
+        }
+        else {
+            isWriting = true;
+            posChar = 0;
+            console.log("gege")
+            textCounter++;
+            if (textCounter == textPres.length) {
+                textCounter = 0;
+            }
         }
 
-        doMorph();
-    } else {
-        doCooldown();
     }
+    else if (posChar < textPres[textCounter].length && isWriting == true) {
+        devTitle.innerHTML += textPres[textCounter].charAt(posChar);
+        posChar++;
+    }
+    else {
+        tempoDev = 10;
+        isWriting = false;
+    }
+
+    // textCounter++;
+    // if (textCounter == textPres.length) {
+    //     textCounter = 0;
+    // }
+
+    setTimeout(typeWritting, 100);
 }
 
-animate();
+typeWritting()
+
+
+
+
+// const elts = {
+//     text1: document.getElementById("text1"),
+//     text2: document.getElementById("text2")
+// };
+
+// const texts = [
+//     "Développeur",
+//     "Web",
+//     "Eric Mai",
+//     "Étudiant",
+// ];
+
+// const morphTime = 1;
+// const cooldownTime = 1;
+
+// let animatingPres = true
+// let textIndex = texts.length - 1;
+// let time = new Date();
+// let morph = 0;
+// let cooldown = cooldownTime;
+
+// elts.text1.textContent = texts[textIndex % texts.length];
+// elts.text2.textContent = texts[(textIndex + 1) % texts.length];
+
+// function doMorph() {
+//     morph -= cooldown;
+//     cooldown = 0;
+
+//     let fraction = morph / morphTime;
+
+//     if (fraction > 1) {
+//         cooldown = cooldownTime;
+//         fraction = 1;
+//     }
+
+//     setMorph(fraction);
+
+// }
+
+// function setMorph(fraction) {
+//     elts.text2.style.filter = `blur(${Math.min(8 / fraction - 8, 100)}px)`;
+//     elts.text2.style.opacity = `${Math.pow(fraction, 0.4) * 100}%`;
+
+//     fraction = 1 - fraction;
+//     elts.text1.style.filter = `blur(${Math.min(8 / fraction - 8, 100)}px)`;
+//     elts.text1.style.opacity = `${Math.pow(fraction, 0.4) * 100}%`;
+
+//     elts.text1.textContent = texts[textIndex % texts.length];
+//     elts.text2.textContent = texts[(textIndex + 1) % texts.length];
+// }
+
+// function doCooldown() {
+//     morph = 0;
+
+//     elts.text2.style.filter = "";
+//     elts.text2.style.opacity = "100%";
+
+//     elts.text1.style.filter = "";
+//     elts.text1.style.opacity = "0%";
+// }
+
+// function animate() {
+//     if (animatingPres == true) {
+//         requestAnimationFrame(animate);
+//     }
+
+//     let newTime = new Date();
+//     let shouldIncrementIndex = cooldown > 0;
+//     let dt = (newTime - time) / 1000;
+//     time = newTime;
+
+//     cooldown -= dt;
+
+//     if (cooldown <= 0) {
+//         if (shouldIncrementIndex) {
+//             textIndex++;
+//         }
+
+//         doMorph();
+//     } else {
+//         doCooldown();
+//     }
+// }
+
+// animate();
 
 
 
@@ -369,17 +385,40 @@ const animateElement = document.querySelectorAll('.profil-text article, .profil-
 
 // Créez une nouvelle instance de l'observateur avec une fonction de rappel
 const observerPresentation = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
+    entries.forEach(entry => {
 
-    if (entry.isIntersecting) {
-      animatingPres = true;
-      animate();
-    } 
-    else {
-      animatingPres = false;
-    }
+        if (entry.isIntersecting) {
+            animatingPres = true;
+            animate();
+        }
+        else {
+            animatingPres = false;
+        }
 
-  });
+    });
 });
 
 observerPresentation.observe(document.querySelector('#presentation'));
+
+
+cmdInput = document.querySelector("#cmd-input");
+cmdInputVar = cmdInput.value;
+
+cmdInput.addEventListener("input", () => {
+    // if (cmdInput.value.length < cmdInputVar.length) {
+    //     cmdInput.value = cmdInput.value.slice(0, -1) + "_";
+    //     cmdInputVar = cmdInput.value;
+    //     console.log("moins")
+    // }
+    // else {
+    //     cmdInput.value = cmdInput.value.slice(0,cmdInputVar.length - 1) + cmdInput.value.slice(cmdInputVar.length) + "_";
+    //     cmdInputVar = cmdInput.value;
+    // }
+    document.querySelector("#cmd-text").textContent = cmdInput.value + "_";
+
+
+})
+
+// document.getElementById('foobar').addEventListener('keyup', e => {
+//     console.log('Caret at: ', e.target.selectionStart)
+//   })

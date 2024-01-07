@@ -241,22 +241,10 @@ header #contact-card-button:hover {
   align-items: center;
   height: 110vh;
 }
-#presentation #container {
-  flex: 0 0 100%;
-  height: 80pt;
-  filter: url(#threshold) blur(0.6px);
-}
-#presentation #text1,
-#presentation #text2 {
-  position: absolute;
-  width: calc(100vw - 220px);
-  display: inline-block;
-  font-weight: 800;
-  font-size: 10vw;
-  text-align: center;
-  user-select: none;
-  -webkit-user-select: none;
-  transform: translate3d(0, 0, 0);
+#presentation h1 {
+  font-size: 9vw;
+  animation: Blink 1s infinite step-end;
+  border-right: solid 3px;
 }
 
 #profil {
@@ -449,13 +437,17 @@ header #contact-card-button:hover {
 }
 #competences #terminal {
   width: 80%;
-  height: 90vh;
+  height: 700px;
   color: #FFFFFF;
   background-color: #04183B;
-  overflow: scroll;
+  display: flex;
+  flex-direction: column;
 }
 #competences #terminal .window-header {
   border-bottom: 5px solid #FFFFFF;
+}
+#competences #terminal > ul {
+  overflow: scroll;
 }
 #competences #terminal ul {
   padding: 0px;
@@ -509,6 +501,12 @@ header #contact-card-button:hover {
 #competences #terminal ul li .icon {
   margin-left: 5px;
   width: 32px;
+}
+#competences #terminal #cmd-input {
+  position: absolute;
+  font-size: 24px;
+  width: calc((100% - 260px) * 0.8);
+  opacity: 0;
 }
 
 #portfolio {
@@ -641,5 +639,8 @@ header #contact-card-button:hover {
   main {
     margin-left: 0;
     width: 100%;
+  }
+  #text1, #text2 {
+    width: 100% !important;
   }
 }/*# sourceMappingURL=styles.css.map */
