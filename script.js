@@ -299,8 +299,26 @@ document.querySelector("#cmd-input").addEventListener("keyup", (e) => {
     if (e.keyCode === 13) {
         cmdValue = document.querySelector("#cmd-input").value;
         document.querySelector("#terminal > ul > li:last-child").innerHTML = document.querySelector("#cmd-input").value;
-        showCompetence(cmdValue);
+        showCompetence(cmdValue.toLowerCase());
+        document.querySelector("#terminal > ul").scrollTop = document.querySelector("#terminal > ul").scrollHeight;
     }
+});
+
+document.querySelectorAll("#terminal li:not(.folder, .cmd).multi-branch").forEach(element => {
+    console.log(element);
+    element.addEventListener("click", () => {
+        isWritting = document.querySelector("#cmd-input");
+        document.querySelector("#terminal li.cmd.li-input").remove();
+        selectedLangage = document.createElement("li");
+        selectedLangage.classList.add("cmd");
+        selectedLangage.value = element.querySelector("p").innerHTML;
+
+        document.querySelector("#terminal > ul").appendChild(selectedLangage);
+        console.log(element.querySelector("p"));
+        lowerCase = element.querySelector("p").innerHTML.toLowerCase();
+        showCompetence(lowerCase);
+        document.querySelector("#terminal > ul").scrollTop = document.querySelector("#terminal > ul").scrollHeight;
+    })
 });
 
 // document.getElementById('foobar').addEventListener('keyup', e => {
@@ -328,12 +346,64 @@ document.querySelectorAll("#close-project, #close-layer, .open-popup").forEach(e
 });
 
 competences = {
-    "HTML": {
+    "html": {
         "title": "HTML",
         "icon": "img/icon/HTML.png",
         "progression": 75,
         "competence": ["Créer un site structuré", "Utiliser les balises sémantiques", "Intégrer des éléments multimédia (vidéo/audio)", "Utiliser les balises meta", "Mettre en forme pour être adapté responsive"]
-    }
+    },
+    "css": {
+        "title": "CSS",
+        "icon": "img/icon/CSS.png",
+        "progression": 80,
+        "competence": ["Utiliser les sélecteurs", "Utiliser les flexbox", "Utiliser les grid", "Utiliser les animations", "Utiliser les media queries", "Utiliser les variables CSS"]
+    },
+    "javascript": {
+        "title": "JavaScript",
+        "icon": "img/icon/JS.png",
+        "progression": 65,
+        "competence": ["Utiliser les variables", "Utiliser les boucles", "Utiliser les conditions", "Utiliser les fonctions", "Utiliser les objets", "Utiliser les tableaux", "Utiliser les méthodes de tableaux", "Utiliser les méthodes d'objets", "Utiliser les évènements", "Utiliser les récursives"]
+    },
+    //sass
+    "sass": {
+        "title": "Sass",
+        "icon": "img/icon/SASS.png",
+        "progression": 50,
+        "competence": ["Utiliser les variables", "Utiliser les boucles", "Utiliser les conditions", "Utiliser les imports", "Utiliser les opérateurs"]
+    },
+    "wordpress": {
+        "title": "Wordpress",
+        "icon": "img/icon/WordPress.png",
+        "progression": 50,
+        "competence": ["Elementor", "Utiliser les thèmes", "Utiliser les plugins", "Utiliser les fonctions", "Intégrer du CSS/JS", ""]
+    },
+    "php": {
+        "title": "PHP",
+        "icon": "img/icon/PHP.png",
+        "progression": 20,
+        "competence": ["Utiliser les variables", "Utiliser les boucles", "Utiliser les conditions", "Utiliser les fonctions"]
+    },
+    "sql": {
+        "title": "SQL",
+        "icon": "img/icon/SQL.png",
+        "progression": 10,
+        "competence": ["Utiliser les requêtes", "Utiliser les jointures"]
+    },
+    // python
+    "python": {
+        "title": "Python",
+        "icon": "img/icon/Python.png",
+        "progression": 40,
+        "competence": ["Utiliser les variables", "Utiliser les boucles", "Utiliser les conditions", "Utiliser les fonctions", "Utiliser les tableaux", "Utiliser les méthodes de tableaux", "Utiliser les récursives"]
+    },
+    "svelte": {
+        "title": "Svelte",
+        "icon": "img/icon/Svelte.png",
+        "progression": 10,
+        "competence": ["Compréhension de Svelte", "Routage simple"]
+    },
+
+    
 }
 
 
@@ -357,7 +427,12 @@ function showCompetence(langage) {
             textComp += `<li>- ${comp}</li>`;
         });
 
-        compLine.innerHTML = `<ul style='gap:10px;'>${textComp}</ul><div><img src='img/icon/HTML.png' alt='icon HTML' loading='lazy'></img></div>`;
+        if (langage == "sql") {
+            compLine.innerHTML = `<ul style='gap:10px;'>${textComp}</ul><div><img src='${competences[langage].icon}' alt='icon HTML' loading='lazy' style='object-fit:contain; height:100px;'></img></div>`;
+        }
+        else {
+            compLine.innerHTML = `<ul style='gap:10px;'>${textComp}</ul><div><img src='${competences[langage].icon}' alt='icon HTML' loading='lazy'></img></div>`;
+        }
 
         document.querySelector("#terminal > ul").appendChild(progressLine);
     }
@@ -378,7 +453,8 @@ function addEventListeners() {
         if (e.keyCode === 13) {
             cmdValue = document.querySelector("#cmd-input").value;
             document.querySelector("#terminal > ul > li:last-child").innerHTML = document.querySelector("#cmd-input").value;
-            showCompetence(cmdValue);
+            showCompetence(cmdValue.toLowerCase());
+            document.querySelector("#terminal > ul").scrollTop = document.querySelector("#terminal > ul").scrollHeight;
         }
     });
 }
