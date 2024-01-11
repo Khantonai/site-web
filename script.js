@@ -111,13 +111,13 @@ document.addEventListener("scroll", () => {
 
         //H2 TRANSFORM
         if (activeSection != 1 && activeSection != document.querySelectorAll("main section").length && (element.getBoundingClientRect().top * -1) / (element.offsetHeight - (window.innerHeight / 2)) * 85 > 0 && (element.getBoundingClientRect().top * -1) / (element.offsetHeight - (window.innerHeight / 2)) * 85 < 85) {
-            document.querySelector("header > nav > article.active h2").style.transform = "translateX(" + ((element.getBoundingClientRect().top * -1) / (element.offsetHeight - (window.innerHeight / 2)) * 85) * -1 + "%)";
+            document.querySelector("header > nav > article.active p").style.transform = "translateX(" + ((element.getBoundingClientRect().top * -1) / (element.offsetHeight - (window.innerHeight / 2)) * 85) * -1 + "%)";
         }
         else if (activeSection == document.querySelectorAll("main section").length && ((element.getBoundingClientRect().top * -1) / (element.offsetHeight - window.innerHeight) * 85) > 0) {
-            document.querySelector("header > nav > article.active h2").style.transform = "translateX(" + ((element.getBoundingClientRect().top * -1) / (element.offsetHeight - window.innerHeight) * 85) * -1 + "%)";
+            document.querySelector("header > nav > article.active p").style.transform = "translateX(" + ((element.getBoundingClientRect().top * -1) / (element.offsetHeight - window.innerHeight) * 85) * -1 + "%)";
         }
         else if (Array.prototype.indexOf.call(document.querySelectorAll("main section"), element) == activeSection - 1 && 100 - ((element.getBoundingClientRect().top * -1) - element.offsetHeight + window.innerHeight / 2) / -element.offsetHeight * 100 > 0 && activeSection != 1) {
-            document.querySelector("header > nav > article.active h2").style.transform = "translateX(0%)";
+            document.querySelector("header > nav > article.active p").style.transform = "translateX(0%)";
         }
     })
 
@@ -246,7 +246,6 @@ function typeWritting() {
         else {
             isWriting = true;
             posChar = 0;
-            console.log("gege")
             textCounter++;
             if (textCounter == textPres.length) {
                 textCounter = 0;
@@ -263,162 +262,123 @@ function typeWritting() {
         isWriting = false;
     }
 
-    // textCounter++;
-    // if (textCounter == textPres.length) {
-    //     textCounter = 0;
-    // }
-
     setTimeout(typeWritting, 100);
 }
 
 typeWritting()
 
 
+// document.querySelectorAll("#portfolio article").forEach(element => {
+//     element.addEventListener("click", () => {
 
-
-// const elts = {
-//     text1: document.getElementById("text1"),
-//     text2: document.getElementById("text2")
-// };
-
-// const texts = [
-//     "Développeur",
-//     "Web",
-//     "Eric Mai",
-//     "Étudiant",
-// ];
-
-// const morphTime = 1;
-// const cooldownTime = 1;
-
-// let animatingPres = true
-// let textIndex = texts.length - 1;
-// let time = new Date();
-// let morph = 0;
-// let cooldown = cooldownTime;
-
-// elts.text1.textContent = texts[textIndex % texts.length];
-// elts.text2.textContent = texts[(textIndex + 1) % texts.length];
-
-// function doMorph() {
-//     morph -= cooldown;
-//     cooldown = 0;
-
-//     let fraction = morph / morphTime;
-
-//     if (fraction > 1) {
-//         cooldown = cooldownTime;
-//         fraction = 1;
-//     }
-
-//     setMorph(fraction);
-
-// }
-
-// function setMorph(fraction) {
-//     elts.text2.style.filter = `blur(${Math.min(8 / fraction - 8, 100)}px)`;
-//     elts.text2.style.opacity = `${Math.pow(fraction, 0.4) * 100}%`;
-
-//     fraction = 1 - fraction;
-//     elts.text1.style.filter = `blur(${Math.min(8 / fraction - 8, 100)}px)`;
-//     elts.text1.style.opacity = `${Math.pow(fraction, 0.4) * 100}%`;
-
-//     elts.text1.textContent = texts[textIndex % texts.length];
-//     elts.text2.textContent = texts[(textIndex + 1) % texts.length];
-// }
-
-// function doCooldown() {
-//     morph = 0;
-
-//     elts.text2.style.filter = "";
-//     elts.text2.style.opacity = "100%";
-
-//     elts.text1.style.filter = "";
-//     elts.text1.style.opacity = "0%";
-// }
-
-// function animate() {
-//     if (animatingPres == true) {
-//         requestAnimationFrame(animate);
-//     }
-
-//     let newTime = new Date();
-//     let shouldIncrementIndex = cooldown > 0;
-//     let dt = (newTime - time) / 1000;
-//     time = newTime;
-
-//     cooldown -= dt;
-
-//     if (cooldown <= 0) {
-//         if (shouldIncrementIndex) {
-//             textIndex++;
+//         try {
+//             document.querySelector("#portfolio article.active").classList.remove("active");
 //         }
+//         catch (e) {
 
-//         doMorph();
-//     } else {
-//         doCooldown();
-//     }
-// }
+//         }
+//         element.classList.add("active");
+//         document.querySelector(".project-viewer").classList.add("active");
+//         document.querySelector(".project-list").classList.add("active");
 
-// animate();
-
-
-
-document.querySelectorAll("#portfolio article").forEach(element => {
-    element.addEventListener("click", () => {
-
-        try {
-            document.querySelector("#portfolio article.active").classList.remove("active");
-        }
-        catch (e) {
-
-        }
-        element.classList.add("active");
-        document.querySelector(".project-viewer").classList.add("active");
-        document.querySelector(".project-list").classList.add("active");
-
-    })
-})
+//     })
+// })
 
 // Sélectionnez l'élément à observer
 const animateElement = document.querySelectorAll('.profil-text article, .profil-list li');
 
-// Créez une nouvelle instance de l'observateur avec une fonction de rappel
-const observerPresentation = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-
-        if (entry.isIntersecting) {
-            animatingPres = true;
-            animate();
-        }
-        else {
-            animatingPres = false;
-        }
-
-    });
-});
-
-observerPresentation.observe(document.querySelector('#presentation'));
 
 
-cmdInput = document.querySelector("#cmd-input");
-cmdInputVar = cmdInput.value;
-
-cmdInput.addEventListener("input", () => {
-    // if (cmdInput.value.length < cmdInputVar.length) {
-    //     cmdInput.value = cmdInput.value.slice(0, -1) + "_";
-    //     cmdInputVar = cmdInput.value;
-    //     console.log("moins")
-    // }
-    // else {
-    //     cmdInput.value = cmdInput.value.slice(0,cmdInputVar.length - 1) + cmdInput.value.slice(cmdInputVar.length) + "_";
-    //     cmdInputVar = cmdInput.value;
-    // }
-    document.querySelector("#cmd-text").textContent = cmdInput.value + "_";
 
 
+document.querySelector("#cmd-input").addEventListener("input", () => {
+    document.querySelector("#cmd-text").textContent = document.querySelector("#cmd-input").value;
 })
+
+document.querySelector("#cmd-input").addEventListener("keyup", (e) => {
+    if (e.keyCode === 13) {
+        cmdValue = document.querySelector("#cmd-input").value;
+        document.querySelector("#terminal > ul > li:last-child").innerHTML = document.querySelector("#cmd-input").value;
+        showCompetence(cmdValue);
+    }
+});
 
 // document.getElementById('foobar').addEventListener('keyup', e => {
 //     console.log('Caret at: ', e.target.selectionStart)
 //   })
+
+
+document.querySelectorAll("#close-project, #close-layer, .open-popup").forEach(element => {
+    element.addEventListener("click", () => {
+        if (document.querySelector("#project-popup").classList.contains("hide")) {
+            document.querySelector("#popup-container").style.removeProperty('transform');
+            document.querySelector("#project-popup").classList.remove("hide");
+            document.querySelector("body").style.overflow = "hidden";
+        }
+        else {
+            document.querySelector("#popup-container").style.transform = "scale(0)";
+            setTimeout(() => {
+                document.querySelector("#project-popup").classList.add("hide");
+                document.querySelector("body").style.overflow = "auto";
+            }, 200);
+            // document.querySelector("#project-popup").classList.add("hide");
+            // document.querySelector("body").style.overflow = "auto";
+        }
+    })
+});
+
+competences = {
+    "HTML": {
+        "title": "HTML",
+        "icon": "img/icon/HTML.png",
+        "progression": 75,
+        "competence": ["Créer un site structuré", "Utiliser les balises sémantiques", "Intégrer des éléments multimédia (vidéo/audio)", "Utiliser les balises meta", "Mettre en forme pour être adapté responsive"]
+    }
+}
+
+
+function showCompetence(langage) {
+    compLine = document.createElement("li");
+    newCmdInput = document.createElement("li");
+    newCmdInput.classList.add("li-input");
+    newCmdInput.classList.add("cmd");
+    newCmdInput.innerHTML = '<input type="text" name="" id="cmd-input" autocomplete="off"><span id="cmd-text"></span><span id="cmd-caret">_</span>';
+
+    if (competences[langage] == undefined) {
+        compLine.innerHTML = "Comande inconnue. Veuillez réessayer avec un des langages cités plus haut.";
+    }
+    else {
+        progressLine = document.createElement("li");
+        progressLine.classList.add("progress-li");
+        progressLine.innerHTML = `Maîtrise : <div class='progress-container'><div style='transform: translateX(-${parseInt(100 - competences[langage].progression)}%)'></div></div>${competences[langage].progression}%`;
+        compLine.classList.add("competence-info");
+        textComp = "";
+        competences[langage].competence.forEach(comp => {
+            textComp += `<li>- ${comp}</li>`;
+        });
+
+        compLine.innerHTML = `<ul style='gap:10px;'>${textComp}</ul><div><img src='img/icon/HTML.png' alt='icon HTML' loading='lazy'></img></div>`;
+
+        document.querySelector("#terminal > ul").appendChild(progressLine);
+    }
+    document.querySelector("#terminal > ul").appendChild(compLine);
+
+    document.querySelector("#terminal > ul").appendChild(newCmdInput);
+    console.log(document.querySelector("#cmd-input"));
+    addEventListeners();
+
+}
+
+function addEventListeners() {
+    document.querySelector("#cmd-input").addEventListener("input", () => {
+        document.querySelector("#cmd-text").textContent = document.querySelector("#cmd-input").value;
+    })
+
+    document.querySelector("#cmd-input").addEventListener("keyup", (e) => {
+        if (e.keyCode === 13) {
+            cmdValue = document.querySelector("#cmd-input").value;
+            document.querySelector("#terminal > ul > li:last-child").innerHTML = document.querySelector("#cmd-input").value;
+            showCompetence(cmdValue);
+        }
+    });
+}

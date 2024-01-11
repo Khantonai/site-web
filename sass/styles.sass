@@ -7,7 +7,7 @@ header
         height: 100%
         width: 200px
         margin-left: 5px
-        z-index: 999
+        z-index: 998
         background-color: $background-color
 
         display: flex
@@ -36,8 +36,10 @@ header
                 flex-direction: column
                 justify-content: space-between
 
-                h2
+                p
                     font-size: 200px
+                    font-weight: 800
+                    font-family: SpaceGrotesk
                     width: fit-content
                     transition: 0.5s ease-out
                     color: $background-color
@@ -55,29 +57,29 @@ header
 
             &:nth-child(2)
                 color: $primary-color
-                h2
+                p
                     text-shadow: 10px 10px $primary-color,-3px -3px $primary-color, 3px 3px $primary-color,3px -3px $primary-color, -3px 3px $primary-color
 
 
             &:nth-child(3)
                 color: $secondary-color
-                h2
+                p
                     text-shadow: 10px 10px $secondary-color,-3px -3px $secondary-color, 3px 3px $secondary-color,3px -3px $secondary-color, -3px 3px $secondary-color
 
 
             &:nth-child(4)
                 color: $tertiary-color
-                h2
+                p
                     text-shadow: 10px 10px $tertiary-color,-3px -3px $tertiary-color, 3px 3px $tertiary-color,3px -3px $tertiary-color, -3px 3px $tertiary-color
 
             &:nth-child(5)
                 color: $quaternary-color
-                h2
+                p
                     text-shadow: 10px 10px $quaternary-color,-3px -3px $quaternary-color, 3px 3px $quaternary-color,3px -3px $quaternary-color, -3px 3px $quaternary-color
 
             &:nth-child(6)
                 color: $pentenary-color
-                h2
+                p
                     text-shadow: 10px 10px $pentenary-color,-3px -3px $pentenary-color, 3px 3px $pentenary-color,3px -3px $pentenary-color, -3px 3px $pentenary-color
 
             &.active
@@ -126,7 +128,7 @@ header
         right: 20px
         cursor: pointer
         transition: width 0.2s ease-in-out, border-radius 0.1s ease-in-out 0.2s
-        z-index: 1000
+        z-index: 998
 
         svg, span
             color: $background-color
@@ -154,9 +156,10 @@ header
     height: 110vh
     
     h1
-        font-size: 9vw
+        font-size: 8vw
         animation: Blink 1s infinite step-end
         border-right: solid 3px
+        height: 8vw
 
 
     // #container
@@ -293,7 +296,7 @@ header
         width: 300px
         gap: 20px
         height: fit-content
-        z-index: 998
+        z-index: 997
 
         #profil-picture
             overflow: hidden
@@ -305,16 +308,31 @@ header
                 width: 105%
                 margin-left: -5px
 
-        #button-container
+        .button-container
             width: calc( 90% + 10px )
             height: 40px
             display: flex
             justify-content: space-between
 
             div
-                flex: 0 0 calc((100% - 80px) / 4)
+                flex: 0 0 calc((100% - 40px) / 2)
                 height: 100%
                 border: $bold-border
+                display: flex
+                align-items: center
+                justify-content: space-evenly
+                box-shadow: $light-shadow
+                transition: 0.5s
+
+                &:hover
+                    box-shadow: $hover-shadow
+                    transform: translate(5px, 5px)
+                    cursor: pointer
+
+                img
+                    height: 85%
+                    width: 34px
+                    object-fit: cover
 
 
         .contact-info
@@ -324,20 +342,13 @@ header
             padding-block: 5px
             border: $bold-border
 
-
-        h1
+        h2
             margin: 0
             font-weight: 600
             font-family: SpaceGrotesk
 
-        h2
-            font-family: SpaceGrotesk
-
-        a,p
+        h3,a,p
             font-family: Sora
-
-
-        h2,a,p
             margin: 0 10px
             font-size: 14px
             text-decoration: none
@@ -363,15 +374,11 @@ header
     display: flex
     flex-direction: column
     align-items: center
-    gap: 50px
-
-    h2
-        font-size: 60px
-        text-align: center
+    padding-bottom: 30vh
 
     #terminal
         width: 80%
-        height: 700px
+        height: 800px
         color: $background-color
         background-color: $foreground-color
         display: flex
@@ -382,7 +389,8 @@ header
         
         > ul
             
-            overflow: scroll
+            overflow-y: scroll
+            height: 100%
 
         ul
             padding: 0px
@@ -394,7 +402,7 @@ header
                 line-height: 1
                 // width: fit-content
 
-                &:not(.folder, .cmd)
+                &:not(.folder, .cmd).multi-branch
                     display: flex
 
                     &:hover
@@ -402,7 +410,10 @@ header
                         color: $foreground-color
                         cursor: pointer
 
-                &.cmd
+                &.cmd:not(:first-child)
+                    margin-top: 20px
+
+                &.cmd:first-child
                     margin-bottom: 5px
 
                 &.cmd::before
@@ -435,134 +446,335 @@ header
                         content: "└"
                         margin-inline: 60px 5px
 
-
-
                 .icon
                     margin-left: 5px
                     width: 32px
-        
+
+                &.li-input
+                    height: 40px
+
+                &.progress-li
+                    display: flex
+
+                .progress-container
+                    width: 300px
+                    margin-inline: 5px 10px
+                    height: 30px
+                    border: 5px solid $background-color
+                    overflow: hidden
+
+                    div
+                        height: 100%
+                        background: repeating-linear-gradient(135deg, $background-color 0 9.65px, $foreground-color 0 19.3px), $foreground-color
+                        background-repeat: repeat
+                        transition: 0.5s
+                        animation: Progress 10s ease-in-out infinite
+
+                &.competence-info
+                    display: flex
+                    justify-content: space-between
+
+                    ul
+                        display: flex
+                        flex-direction: column
+                        gap: 10px
+
+                    img
+                        width: 200px
+                        height: 200px
+                        object-fit: cover
+                        border: $bold-border
+                        margin-right: 10px
+
+
         #cmd-input
-            // height: 100%
-            position: absolute
-            // background-color: $foreground-color
-            // color: $background-color
-            // border: none
-            // outline: none
-            // font-family: Sora
+            // position: absolute
+            font-family: Sora
+            transform: translateX(-4px)
             font-size: 24px
-            width: calc( (100% - 260px) * 0.8 )
+            // width: calc( (100% - 260px) * 0.8 )
+            width: calc( 100% - 30px )
             opacity: 0
-            // padding: 0 5px
-            // caret-color: none
-            // resize: none
+            position: relative
+            z-index: 997
+        
+            &:focus ~ #cmd-caret
+                animation: BlinkElement 1s infinite step-end
+        
+        #cmd-text, #cmd-caret
+            position: relative
+            top: -30px
+            left: 20px
 
-        // h3
-        //     font-size: 60px
-
-        // .dev-skill-title
-        //     animation: Blink 1s infinite step-end
-        //     border-right: solid 3px
 
 #portfolio
-    display: flex
-    flex-direction: column
-    justify-content: space-between
-    gap: 20px
+    height: max(fit-content,100vh)
 
-    .header
-        border: $bold-border
-        height: fit-content
+    #project-popup
+        width: 100vw
+        height: 100vh
+        position: fixed
+        top: 0
+        left: 0
+        background-color: rgb(0, 0, 0, 0.3)
+        z-index: 999
 
-        ul
-            display: flex
-            flex-wrap: wrap
-
-            li
-                display: flex
-                align-items: center
-                font-family: SpaceGrotesk
-                font-size: min(35px, 4vw)
-                margin: 0 30px
-
-                input
-                    width: 30px
-                    height: 30px
-                    margin: 0 10px 0 0
-                    z-index: 2
-                    opacity: 0
-
-
-                .checkmark
-                    border: $bold-border
-                    width: 20px
-                    height: 20px
-                    display: block
-                    position: absolute
-                    z-index: 1
-                    box-shadow: $light-shadow
-                    transition: 0.5s
-
-                    &:after
-                        content: ""
-                        position: absolute
-                        display: none
-                        left: 4px
-                        top: 0px
-                        width: 8px
-                        height: 13px
-                        border: solid
-                        border-width: 0 4px 4px 0
-                        -webkit-transform: rotate(45deg)
-                        -ms-transform: rotate(45deg)
-                        transform: rotate(45deg)
-
-                input:checked ~ .checkmark
-                    box-shadow: $hover-shadow
-                    transform: translate(5px, 5px)
-                    
-                input:checked ~ .checkmark:after
-                    display: block
-                
-                input:hover ~ .checkmark
-                    box-shadow: $hover-shadow
-                    transform: translate(5px, 5px)
-    
-    .main
-        width: 100%
-        height: 100%
-        display: flex
-        gap: 20px
-
-        .project-list
-            border: $bold-border
-            display: grid
-            grid-template-columns: repeat(auto-fill, max(150px, calc( (100vw - 220px) / 5 )))
-            grid-auto-rows: max(150px, calc( (100vw - 220px) / 5 ))
-            gap: 10px
-            padding: 10px
-            transition: 0.5s
-            flex: 0 0 calc( 100% - 30px )
-
-            article
-                border: $bold-border
-                background-color: blue
-
-            &.active
-                flex: 0 0 0px
-                grid-template-columns: 150px
-                grid-template-rows: repeat(auto-fill, 150px)
-                
-
-        .project-viewer
-            border: $bold-border
-            // flex: 0 0 100%
-            width: 100%
+        &.hide
             display: none
-            background-color: red
-            transition: 0.5s
 
-            &.active
-                display: block
+        #popup-container
+            position: relative
+            width: calc( 95% - 220px )
+            height: 95%
+            background-color: $background-color
+            top: calc( 5% / 2 )
+            left: calc(210px + (5% / 2))
+            z-index: 999
+            border: $bold-border
+            box-shadow: $bold-shadow
+            transition: 0.2s ease-out
+            animation: Expand 0.5s ease-out
+        
+        #close-layer
+            position: absolute
+            width: 100%
+            height: 100%
+            top: 0
+            left: 0
+            z-index: 998
+
+    #carousel
+        display: flex
+        flex-wrap: wrap
+        justify-content: space-evenly
+        gap: 10vw
+        .project
+            border: $bold-border
+            box-shadow: $bold-shadow,inset 0 -350px 50px -100px rgba(255, 255, 255, 1)
+            width: min(400px,85vw)
+            
+            height: min(400px,calc(50vw + 170px))
+            
+            transition: box-shadow 0.5s ease-in-out
+            overflow: hidden
+
+            &:hover
+                transition: 0.5s ease-in-out
+                box-shadow: $bold-shadow, inset 0 -600px 50px -100px rgba(255, 255, 255, 1)
+                .project-text
+                    margin-top: 0
+                    height: 90px
+
+                    p
+                        opacity: 0
+                        height: 0
+                        overflow: hidden
+
+            .project-text
+                transition: 0.5s ease-in-out
+                margin-top: 50%
+                height: 185px
+                display: flex
+                text-align: center
+                flex-direction: column
+                justify-content: space-between
+
+                h3
+                    font-size: 32px
+                    font-family: SpaceGrotesk
+                    margin: 0
+
+                p
+                    transition: 0.5s ease-in-out
+                    height: 60px
+                    padding-inline: 20px
+
+                .button-container
+                    display: flex
+                    justify-content: space-evenly
+                    font-family: SpaceGrotesk
+
+                    div
+                        flex: 0 0 calc(50% - 50px )
+                        padding: 5px
+                        // border: $bold-border
+                        box-shadow: $light-shadow
+                        transition: 0.5s
+
+                        &:hover
+                            box-shadow: $hover-shadow
+                            transform: translate(5px, 5px)
+                            cursor: pointer
+
+                        &:first-child
+                            color: $primary-color
+                            border: 5px solid $primary-color
+                        
+                        &:last-child
+                            color: $secondary-color
+                            border: 5px solid $secondary-color
+
+            .project-resume
+                display: flex
+                height: min(295px, 50vw + 65px)
+                margin-top: 15px
+
+                > div
+                    width: 50%
+                    padding: 5px
+                    gap: 5px
+                    display: flex
+                    flex-direction: column
+                    justify-content: space-between
+
+                    ul
+                        display: flex
+                        justify-content: space-between
+                        width: 100%
+                        padding: 0
+                        margin: 0
+
+                        li
+                            width: 45px
+                            height: 45px
+                            border: $bold-border
+                            display: flex
+                            justify-content: center
+                            align-items: center
+
+                            img
+                                width: calc( 100% - 10px )
+                                object-fit: cover
+                    
+                    button
+                        width: 100%
+                        // color: $quaternary-color
+                        border: 5px solid $quaternary-color
+                        background-color: $quaternary-color
+                        color: $background-color
+                        transition: 0.5s
+                        cursor: pointer
+
+
+                        &:hover
+                            border: 5px solid $tertiary-color
+                            background-color: $tertiary-color
+                            color: $foreground-color
+
+
+                    p, div
+                        border: $bold-border
+                        padding: 5px
+                    p
+                        overflow-y: scroll
+                        height: 100%
+                    
+                    .project-picture
+                        width: calc( 100% - 10px )
+                        height: 140px
+                        object-fit: cover
+                        border: $bold-border
+
+
+    // display: flex
+    // flex-direction: column
+    // justify-content: space-between
+    // gap: 20px
+
+    // .header
+    //     border: $bold-border
+    //     height: fit-content
+
+    //     ul
+    //         display: flex
+    //         flex-wrap: wrap
+
+    //         li
+    //             display: flex
+    //             align-items: center
+    //             font-family: SpaceGrotesk
+    //             font-size: min(35px, 4vw)
+    //             margin: 0 30px
+
+    //             input
+    //                 width: 30px
+    //                 height: 30px
+    //                 margin: 0 10px 0 0
+    //                 z-index: 2
+    //                 opacity: 0
+
+
+    //             .checkmark
+    //                 border: $bold-border
+    //                 width: 20px
+    //                 height: 20px
+    //                 display: block
+    //                 position: absolute
+    //                 z-index: 1
+    //                 box-shadow: $light-shadow
+    //                 transition: 0.5s
+
+    //                 &:after
+    //                     content: ""
+    //                     position: absolute
+    //                     display: none
+    //                     left: 4px
+    //                     top: 0px
+    //                     width: 8px
+    //                     height: 13px
+    //                     border: solid
+    //                     border-width: 0 4px 4px 0
+    //                     -webkit-transform: rotate(45deg)
+    //                     -ms-transform: rotate(45deg)
+    //                     transform: rotate(45deg)
+
+    //             input:checked ~ .checkmark
+    //                 box-shadow: $hover-shadow
+    //                 transform: translate(5px, 5px)
+                    
+    //             input:checked ~ .checkmark:after
+    //                 display: block
+                
+    //             input:hover ~ .checkmark
+    //                 box-shadow: $hover-shadow
+    //                 transform: translate(5px, 5px)
+    
+    // .main
+    //     width: 100%
+    //     height: 100%
+    //     display: flex
+    //     gap: 20px
+
+    //     .project-list
+    //         border: $bold-border
+    //         display: grid
+    //         grid-template-columns: repeat(auto-fill, max(150px, calc( (100vw - 220px) / 5 )))
+    //         grid-auto-rows: max(150px, calc( (100vw - 220px) / 5 ))
+    //         gap: 10px
+    //         padding: 10px
+    //         transition: 0.5s
+    //         flex: 0 0 calc( 100% - 30px )
+
+    //         article
+    //             border: $bold-border
+    //             background-color: blue
+
+    //         &.active
+    //             flex: 0 0 0px
+    //             grid-template-columns: 150px
+    //             grid-template-rows: repeat(auto-fill, 150px)
+                
+
+    //     .project-viewer
+    //         border: $bold-border
+    //         // flex: 0 0 100%
+    //         width: 100%
+    //         display: none
+    //         background-color: red
+    //         transition: 0.5s
+
+    //         &.active
+    //             display: block
 
 @media screen and (max-width: 767px)
     header
@@ -589,7 +801,7 @@ header
                 .scrollView
                     display: none
 
-            article:nth-child(1), h2, img
+            article:nth-child(1), p, img
                 display: none
 
         #contact-card-button
@@ -598,7 +810,4 @@ header
     main
         margin-left: 0
         width: 100%
-    
-    #text1, #text2
-        width: 100% !important
 

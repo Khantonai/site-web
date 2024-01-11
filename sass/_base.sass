@@ -3,33 +3,48 @@ body
     font-family: Sora, sans-serif
     margin: 0
     padding: 0
+    // height: 100vh
+    // border: solid red
 
 h1, h2, p
     color: inherit
 
 h1
+    font-family: SpaceGrotesk
+
+h2
     font-size: 24px
     font-family: SpaceGrotesk
     margin-block: 4px
 
-h2
-    font-size: 20px
-    font-family: SpaceGrotesk
-    margin: 0
+
+.section-title
+    font-size: 60px
+    text-align: center
+    margin-bottom: 50px
 
 p
     margin: 0
+
+button
+    background-color: $background-color
+    border: $bold-border
+    cursor: pointer
+    font-family: SpaceGrotesk
+    font-size: 18px
+    transition: all 0.2s ease-in-out
 
 main
     margin-left: 215px
     height: 100%
     width: calc( 100% - 220px)
+    // overflow: scroll
 
 main section
     // border: solid
     // overflow: hidden
 
-main section:not(#presentation,#profil, #competences)
+main section:not(#presentation,#profil, #competences, #portfolio)
     height: 100vh
 
 li
